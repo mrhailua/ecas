@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+                            http://www.springframework.org/schema/aop
+                            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                            http://www.springframework.org/schema/util 
+                            http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<context:property-placeholder location="classpath*:/mandatory/*.properties" />
+	<context:component-scan base-package="com.ecas" />
+
+	<bean id="serviceRegistry" class="com.ecas.service.impl.ServiceRegistryImpl">
+		<property name="fallbackPrototypeBeanName" value="defaultDataService" />
+		<property name="defaultStatusBeanName" value="defaultStatusDataService" />
+	</bean>
+
+	<bean id="documentServiceRegistry" class="com.ecas.service.impl.DocumentServiceRegistryImpl">
+	</bean>
+
+	<bean id="defaultDataService" class="com.ecas.service.impl.GenericDataServiceImpl"
+		scope="prototype">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="audtiInterceptor" class="com.ecas.audit.AuditInterceptor" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		depends-on="flyway">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+				<prop key="hibernate.connection.url">${database.url}</prop>
+				<prop key="hibernate.connection.username">${database.user}</prop>
+				<prop key="hibernate.connection.password">${database.pass}</prop>
+				
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.connection.release_mode">after_transaction</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.jdbc.fetch_size">100</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider
+				</prop>
+				<prop key="hibernate.c3p0.min_size">3</prop>
+				<prop key="hibernate.c3p0.max_size">20</prop>
+				<prop key="hibernate.c3p0.timeout">500</prop>
+				<prop key="hibernate.c3p0.max_statements">500</prop>
+				<prop key="hibernate.c3p0.idle_test_period">1000</prop>
+				<prop key="hibernate.c3p0.validate">false</prop>
+
+				<!-- EHCache -->
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+				</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">/cache/ehcache.xml</prop>
+
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.ecas.base</value>
+				<value>com.ecas.domain</value>
+				<value>com.ecas.audit</value>
+				<value>com.ecas.configure</value>
+			</list>
+		</property>
+		<property name="entityInterceptor" ref="audtiInterceptor" />
+	</bean>
+
+	<tx:annotation-driven mode="proxy" transaction-manager="transactionManager" />
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="nestedTransactionAllowed" value="true" />
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.pass}" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<bean id="flyway" class="com.googlecode.flyway.core.Flyway"
+		init-method="migrate">
+		<property name="dataSource" ref="dataSource" />
+		<property name="locations" value="db/migrate/tenant"></property>
+		<property name="initOnMigrate" value="true"></property>
+		<property name="placeholderPrefix" value="{{" />
+		<property name="placeholderSuffix" value="}}" />
+		<property name="initVersion" value="00001"></property>
+		<property name="outOfOrder" value="false"></property>
+	</bean>
+
+</beans>

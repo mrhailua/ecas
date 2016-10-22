@@ -1,0 +1,156 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
+                template="/layouts/organizationSettingsLayout.xhtml">
+
+    <ui:define name="organizationContent">
+        <p:dataTable id="orgUserList" widgetVar="orgUserList" var="userInfo" value="#{userManageBean.dataModel}"
+                     editable="true" selection="#{userManageBean.selectedUser}" styleClass="textLeft"
+                     emptyMessage="#{msg['system.common.empty']}" rowIndexVar="rowIndex" rows="10" paginator="true"
+                     paginatorPosition="bottom"
+                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="10,15,20">
+            <f:facet name="header">
+                <p:toolbarGroup align="left" style="text-align:left">
+                    <p:commandButton id="add" value="#{msg['system.button.invite.label']}" icon="ui-icon-plus"
+                                     oncomplete="PF('dlg').show();" actionListener="#{userManageBean.addUser}"
+                                     update=":mainForm:messages,:mainForm:dialog" process="@this"
+                                     rendered="#{userManageBean.reachUserCountLimit}"/>
+
+
+                </p:toolbarGroup>
+            </f:facet>
+            <p:column selectionMode="single" style="width:16px;text-align:center" global="false"/>
+            <p:ajax event="rowEdit" listener="#{userManageBean.onRowEdit}" global="false"/>
+            <p:ajax event="rowEditCancel" global="false"/>
+            <p:ajax event="filter" global="false"/>
+            <p:ajax event="page" global="false"/>
+
+            <p:column filterBy="#{userInfo.id}" filterMatchMode="exact">
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('orgUserList').filter()" label="#{msg['leave.store.column.user']}"
+                                     filter="true"
+                                     style="width:100%">
+                        <f:selectItem itemLabel="#{msg['leave.store.show.all.user']}" itemValue=""/>
+                        <f:selectItems value="#{userManageBean.users}" var="user" itemLabel="#{user.name}"
+                                       itemValue="#{user.id}"/>
+                    </p:selectOneMenu>
+                </f:facet>
+                <h:outputText value="#{userInfo.name}" title="#{userInfo.email}" styleClass="user-info"/>
+            </p:column>
+
+            <p:column headerText="#{msg['iwork.login.form.enable.label']}" width="100" styleClass="textCenter">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <p:selectBooleanButton value="#{userInfo.userEnable}" onLabel="#{msg['common.yes']}"
+                                               offLabel="#{msg['common.no']}" onIcon="ui-icon-check"
+                                               offIcon="ui-icon-close" style="margin-left:10px;margin-right:10px"
+                                               disabled="true"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectBooleanButton value="#{userInfo.userEnable}" onLabel="#{msg['common.yes']}"
+                                               offLabel="#{msg['common.no']}" onIcon="ui-icon-check"
+                                               offIcon="ui-icon-close" style="margin-left:10px;margin-right:10px"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="#{msg['iwork.login.form.active.label']}" width="100" styleClass="textCenter">
+                <p:link href="#">
+                    <h:graphicImage library="images" name="checked-checkbox-24.png" title="#{msg['common.yes']}"
+                                    style="height:18px"
+                                    rendered="#{userInfo.active}"/>
+                    <h:graphicImage library="images" name="x-mark-5-24.png" title="#{msg['common.no']}"
+                                    style="height:18px"
+                                    rendered="#{!userInfo.active}"/>
+                </p:link>
+            </p:column>
+
+            <p:column style="width:32px">
+                <p:rowEditor/>
+            </p:column>
+        </p:dataTable>
+
+        <p:dialog id="dialog" header="#{msg['iwork.user.dialog.title']}" widgetVar="dlg" position="center,center"
+                  height="170"
+                  width="600" resizable="false" appendTo="mainForm" modal="true">
+
+            <h:panelGrid id="userPanel" columns="3" styleClass="textLeft padding-top padding-left">
+                <p:outputLabel for="userName" value="#{msg['iwork.login.form.name.label']}"/>
+                <p:inputText id="userName" value="#{userManageBean.editUser.name}" required="true"
+                             requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}" maxlength="255"
+                             size="70"/>
+                <p:message for="userName" display="icon"/>
+
+                <p:outputLabel for="userEmail" value="#{msg['iwork.login.form.username.label']}"/>
+                <p:inputText id="userEmail" value="#{userManageBean.editUser.email}" required="true"
+                             requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}" maxlength="255"
+                             size="70">
+                    <f:validator binding="#{validateEmailValidator}"/>
+                    <f:validator binding="#{validateEmailUniqueValidator}"/>
+                </p:inputText>
+                <p:message for="userEmail" display="icon"/>
+
+                <p:outputLabel for="selectGender" value="#{msg['iwork.login.form.gender.label']}"/>
+                <p:selectOneMenu id="selectGender" value="#{userManageBean.editUser.gender}" required="true"
+                                 style="width:120px"
+                                 requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}"
+                                 converter="#{genderConverter}">
+                    <f:selectItem
+                            itemLabel="#{msg['iwork.store.configure.datatable.column.increase.gender.default.label']}"
+                            itemValue=""/>
+                    <f:selectItem itemLabel="#{msg['leave.look.gender.female']}" itemValue="Female"/>
+                    <f:selectItem itemLabel="#{msg['leave.look.gender.male']}" itemValue="Male"/>
+                </p:selectOneMenu>
+                <p:message for="selectGender" display="icon"/>
+            </h:panelGrid>
+
+            <f:facet name="footer">
+                <p:commandButton value="#{msg['system.button.invite.label']}" action="#{userManageBean.doInviteUser}"
+                                 styleClass="k-primary" update=":mainForm:orgUserList,messages,userPanel"
+                                 process="dialog"/>
+                <p:commandButton value="#{msg['system.button.cancel.label']}" style="margin-left: 5px;" immediate="true"
+                                 global="false" onclick="PF('dlg').hide();"/>
+            </f:facet>
+        </p:dialog>
+
+        <p:dialog id="dialogConfirmation" header="#{msg['iwork.user.delete.dialog.title']}"
+                  widgetVar="dialogConfirmation"
+                  dynamic="true" position="center,center" resizable="false" appendTo="mainForm" modal="true"
+                  width="400">
+            <p:ajax event="close" update="dialogConfirmation" global="false"/>
+            <p:panel id="dialogConfirmPanel" styleClass="noborder-panel">
+                <p:outputPanel>
+                    <p:outputLabel value="#{msg['iwork.user.delete.confirm.message']}"/>
+                </p:outputPanel>
+
+                <c:if test="${userManageBean.replaceByUsers.size() > 0}">
+                    <h:panelGrid columns="1">
+                        <p:outputLabel for="departmentApprover"
+                                       value="#{msg['leave.look.user.delete.replace.approver.msg']}"/>
+                        <p:selectOneMenu id="departmentApprover" value="#{userManageBean.replaceBy}" style="width:180px"
+                                         required="true"
+                                         requiredMessage="#{msg['leave.store.datatable.column.select.require.msg']}"
+                                         converter="#{iworkWorkerConverter}">
+                            <f:selectItem itemLabel="#{msg['iwork.approver.datatable.column.default.label']}"
+                                          itemValue=""/>
+                            <f:selectItems value="#{userManageBean.replaceByUsers}" var="replaceUser"
+                                           itemLabel="#{replaceUser.name}"
+                                           itemValue="#{replaceUser.id}"/>
+                        </p:selectOneMenu>
+                        <p:message for="departmentApprover" display="icon"/>
+                    </h:panelGrid>
+                </c:if>
+            </p:panel>
+            <f:facet name="footer">
+                <p:commandButton value="#{msg['system.button.remove.label']}"
+                                 actionListener="#{userManageBean.doRemove}"
+                                 update=":mainForm:dialogConfirmPanel,:mainForm:orgUserList,:mainForm:messages,userPanel"
+                                 process="dialogConfirmation" styleClass="k-primary"/>
+                <p:commandButton value="#{msg['system.button.cancel.label']}" immediate="true" style="margin-left: 5px;"
+                                 global="false" onclick="PF('dialogConfirmation').hide();"/>
+            </f:facet>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

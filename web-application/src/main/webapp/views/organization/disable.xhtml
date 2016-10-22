@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<f:view contentType="text/html" locale="#{languageBean.localeCode}">
+	<pe:head title="#{msg['iwork.sign.in.title']}" shortcutIcon="#{request.contextPath}/favicon.ico">
+		<f:facet name="first">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="pragma" content="no-cache" />
+			<meta http-equiv="cache-control" content="no-cache" />
+			<meta http-equiv="expires" content="0" />
+		</f:facet>
+	</pe:head>
+	<h:body styleClass="textCenter">
+		<ui:include src="/sections/shared/resources-app.xhtml" />
+		<h:form id="mainForm" prependId="false">
+			<table border="0" style="width: 100%; padding-top: 100px">
+				<tr>
+					<td align="center"><p:outputLabel escape="false" value="#{msg['iwork.error.org.disable.message']}"
+							styleClass="errorContent" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

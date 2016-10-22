@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="classpath:ehcache.xsd"
+         updateCheck="true" monitoring="autodetect" dynamicConfig="true">
+
+    <diskStore path="java.io.tmpdir/ehcache"/>
+
+    <defaultCache maxEntriesLocalHeap="500" eternal="false" timeToIdleSeconds="60" timeToLiveSeconds="1800"
+                  diskSpoolBufferSizeMB="10" maxEntriesLocalDisk="1000" diskExpiryThreadIntervalSeconds="1800"
+                  memoryStoreEvictionPolicy="LRU" statistics="true">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+
+    <cache name="designRenderedPage"
+           maxEntriesLocalHeap="10000"
+           maxEntriesLocalDisk="1000"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="300" timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="configure" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="country_configure" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="message_resource" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="location_configure" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="organization" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="organization_service" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="saas_service" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="setting" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="user_info" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="user_message" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="user_request" maxEntriesLocalHeap="500" eternal="false" timeToLiveSeconds="300">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache" maxEntriesLocalHeap="500" eternal="true">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+</ehcache>

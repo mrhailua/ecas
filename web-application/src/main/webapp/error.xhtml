@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="layouts/mainLayout.xhtml">
+
+	<ui:define name="content">
+		<ul>
+		    <li>HTTP user agent: #{header['user-agent']}</li>
+		    <li>Request URI: #{requestScope['javax.servlet.error.request_uri']}</li>
+		    <li>Status code: #{requestScope['javax.servlet.error.status_code']}</li>
+		    <li>Exception type: #{requestScope['javax.servlet.error.exception_type']}</li>
+		    <li>Exception message: #{requestScope['javax.servlet.error.message']}</li>
+		    <li>Exception stack trace: 
+		        <pre>#{requestScope['javax.servlet.error.exception']}</pre>
+		    </li>
+		</ul>
+	</ui:define>
+</ui:composition>

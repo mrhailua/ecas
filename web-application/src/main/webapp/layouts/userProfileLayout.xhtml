@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/layouts/masterLayout.xhtml">
+    <ui:define name="metadata">
+        <pe:head title="#{organizationContext.workingOrganization.name}"
+                 shortcutIcon="#{request.contextPath}/favicon.ico">
+            <f:facet name="first">
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                <meta http-equiv="pragma" content="no-cache"/>
+                <meta http-equiv="cache-control" content="no-cache"/>
+                <meta http-equiv="expires" content="0"/>
+            </f:facet>
+        </pe:head>
+    </ui:define>
+    <ui:define name="resources-app">
+        <ui:include src="/sections/shared/resources-app.xhtml"/>
+    </ui:define>
+    <ui:define name="header">
+        <ui:include src="/sections/organization/header.xhtml"/>
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="/sections/system/footer.xhtml"/>
+    </ui:define>
+    <ui:define name="centerContent">
+        <pe:layoutPane position="west" closable="false" resizable="false" slidable="false"
+                       spacingOpen="0">
+            <f:facet name="header">
+                <h:outputText value="#{msg['leave.look.profile.left.panel.label']}"/>
+            </f:facet>
+            <ul class="nav nav-pills nav-stacked">
+            	<li role="presentation" class="#{navigationContext.getActiveClass('profile')}"><a href="#{request.contextPath}/views/user/profile.xhtml">#{msg['iwork.menu.profile.general']}</a></li>
+                <li role="presentation" class="#{navigationContext.getActiveClass('notification')}"><a href="#{request.contextPath}/views/user/notification.xhtml">#{msg['iwork.menu.profile.notification']}</a></li>
+            </ul>
+        </pe:layoutPane>
+        <pe:layoutPane position="center" closable="false" resizable="false" slidable="false"
+                       styleClassContent="textCenter centerContent"
+                       spacingOpen="0">
+            <ui:insert name="organizationContent"/>
+        </pe:layoutPane>
+    </ui:define>
+</ui:composition>
+</html>

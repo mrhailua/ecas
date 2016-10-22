@@ -1,0 +1,11 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+	template="/layouts/mainLayout.xhtml">
+	<ui:define name="centerContent">
+		<h:panelGroup layout="block" styleClass="centerLogin">
+			<p:outputPanel style="padding-top:30px">
+				<h:outputText value="#{msg['leave.look.user.deleted']}" styleClass="remove-message" />
+			</p:outputPanel>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

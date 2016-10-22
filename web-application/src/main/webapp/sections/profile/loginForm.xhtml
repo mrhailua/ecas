@@ -1,0 +1,23 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<h:panelGrid id="loginPanel" columns="2">
+		<p:inputText id="useremail" value="#{loginBean.user.email}" size="80" required="true" 
+			requiredMessage="#{msg['iwork.sign.up.email.require.msg']}" placeholder="#{msg['iwork.login.form.username.label']}" />
+		<p:message for="useremail" display="icon" />
+
+		<p:password id="userPassword" value="#{loginBean.user.password}" size="80" required="true"
+			requiredMessage="#{msg['iwork.sign.up.password.require.msg']}"
+			placeholder="#{msg['iwork.login.form.password.label']}" />
+		<p:message for="userPassword" display="icon" />
+
+		<f:facet name="footer">
+			<p:commandButton value="#{msg['iwork.login.form.btn.sign.in']}" ajax="false" action="#{loginBean.login}"
+				update=":loginForm:messages,loginPanel" styleClass="k-primary" />
+			<p:button value="#{msg['iwork.login.form.btn.forget.pass']}" outcome="/views/user/reset" style="margin-left: 5px;"
+				>
+				<i class="m-icon-swapright m-icon-white"></i>
+			</p:button>
+		</f:facet>
+	</h:panelGrid>
+</ui:composition>

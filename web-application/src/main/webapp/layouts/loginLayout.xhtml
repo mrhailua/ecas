@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/layouts/loginMasterLayout.xhtml">
+	<ui:define name="resources-app">
+		<h:outputStylesheet library="css" name="layout.css" />
+		<h:outputStylesheet library="css" name="global.css" />
+		<h:outputStylesheet library="css" name="bootstrap.css" />
+
+		<h:outputScript library="js" name="menu.js" target="head" />
+		<h:outputScript library="js" name="ajax.js" target="head" />
+		<h:outputScript library="js" name="jquery.backstretch.js" target="head" />
+
+	</ui:define>
+	<ui:define name="center">
+		<pe:layoutPane position="center">
+			<p:panel styleClass="v-textCenter centerLogin" >
+				<p:panelGrid columns="1" style="border:none" styleClass="centerLogin" >
+					<h:graphicImage
+							value="/fileservice/#{organizationContext.workingOrganization.logo.id}/#{organizationContext.workingOrganization.logo.fileName}"
+							style="height:40px" styleClass="logo" title="#{organizationContext.workingOrganization.name}"
+							rendered="#{organizationContext.workingOrganization.logo != null}"/>
+
+					<h:graphicImage library="images" name="logo.png" style="height:40px" styleClass="logo"
+						title="#{msg['com.cms.slogan.msg']}" rendered="#{organizationContext.workingOrganization.logo == null}"/>
+					<ui:insert name="centerContent" />
+				</p:panelGrid>
+			</p:panel>
+		</pe:layoutPane>
+		<pe:layoutPane position="south" closable="false" resizable="false" slidable="false" spacingOpen="0">
+			<ui:include src="/sections/system/footer.xhtml"/>
+		</pe:layoutPane>
+	</ui:define>
+</ui:composition>
+</html>

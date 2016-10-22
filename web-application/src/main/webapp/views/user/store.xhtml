@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+	template="/layouts/userProfileLayout.xhtml">
+	<ui:define name="organizationContent">
+		<p:dataTable id="storeList" var="store" value="#{userStoreBean.dataModel}" styleClass="textLeft"
+			emptyMessage="#{msg['system.common.empty']}">
+			<f:facet name="header">
+				<h:outputText value="#{msg['leave.store.datatable.header']}" />
+				<p:link href="#" style="float:right">
+					<h:graphicImage library="images" name="question-mark-16.png" styleClass="help-icon"
+						title="#{helpResourceBean.getMessage('leave.look.store.help')}" />
+				</p:link>
+			</f:facet>
+
+			<p:column headerText="#{msg['leave.store.column.user']}">
+				<h:outputText value="#{store.user.name}" title="#{store.user.email}" />
+			</p:column>
+
+			<p:column headerText="#{msg['leave.store.column.type']}" width="200">
+				<h:outputText value="#{store.leaveType.name}" title="#{store.leaveType.description}" />
+			</p:column>
+
+			<p:column headerText="#{msg['leave.store.column.current']}" width="150" styleClass="textRight">
+				<h:outputText value="#{userStoreBean.getTimeString(store.current)}" title="#{store.current}(#{msg['leave.look.unit.hour']})"/>
+			</p:column>
+			
+			<p:column headerText="#{msg['leave.store.dialog.leave.block']}" width="150" styleClass="textRight">
+				<h:outputText value="#{userStoreBean.getTimeString(store.blockBalance)}" title="#{store.blockBalance}(#{msg['leave.look.unit.hour']})"/>
+			</p:column>
+			
+			<p:column headerText="#{msg['leave.store.dialog.leave.available']}" width="150" styleClass="textRight">
+				<h:outputText value="#{userStoreBean.getTimeString(store.availableBalance)}" title="#{store.availableBalance}(#{msg['leave.look.unit.hour']})"/>
+			</p:column>
+
+			<p:column headerText="#{msg['leave.store.dialog.leave.init']}" width="150" styleClass="textRight">
+				<h:outputText value="#{userStoreBean.getTimeString(store.initStore)}" title="#{store.initStore}(#{msg['leave.look.unit.hour']})"/>
+			</p:column>
+			
+			<f:facet name="footer">
+				<h:outputText value="#{msg['leave.store.datatable.footer']}" />:
+				<h:outputText value="#{userStoreBean.getTimeString(userStoreBean.sumStore)}" title="#{userStoreBean.sumStore}(#{msg['leave.look.unit.hour']})"/>
+			</f:facet>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>

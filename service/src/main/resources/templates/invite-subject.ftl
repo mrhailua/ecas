@@ -1,0 +1,1 @@
+Invite join ${organizattion.name} by ${inviteBy.name}

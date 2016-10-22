@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition>
+	<p:dialog id="userRequestdialog" header="#{msg['iwork.leaveRequest.user.request.dialog.title']}" widgetVar="userRequestdialog" height="350"
+		position="center,center" resizable="false" appendTo="mainForm" modal="true" fitViewport="true" width="700"
+		rendered="#{organizationContext.organizationAvailable}">
+		<h:panelGrid id="UserRequestInfo" columns="1" styleClass="textLeft">
+			<h:panelGrid columns="6" styleClass="textLeft">
+				<p:selectOneMenu id="userleaveRequestType" styleClass="phase" value="#{leaveRequestBean.editLeaveRequest.leaveType}"
+					style="width:160px" converter="#{iworkLeaveTypeConverter}" required="true"
+					converterMessage="#{msg['iwork.leaveRequest.select.convert.message']}"
+					requiredMessage="#{msg['iwork.leaveRequest.type.require.msg']}">
+					<p:ajax listener="#{leaveRequestBean.onLeaveTypeChange}" global="false" update="userDurationPanel" />
+					
+					<f:selectItem itemLabel="#{msg['iwork.leaveRequest.type.default.label']}" itemValue="" />
+					<f:selectItems value="#{leaveRequestBean.leaveTypes}" var="type" itemLabel="#{type.name}" itemValue="#{type.id}" />
+				</p:selectOneMenu>
+				<p:message for="userleaveRequestType" display="icon" />
+
+				<p:calendar id="userstartDate" value="#{leaveRequestBean.editLeaveRequest.fromTime}" showOn="both" required="true"
+					pattern="#{config['date.format']}" readonlyInput="true" maxdate="#{leaveRequestBean.editLeaveRequest.toTime}"
+					requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}" size="10" locale="en_UK"
+					placeholder="#{msg['iwork.leaveRequest.fromTime.label']}">
+					<p:ajax event="dateSelect" update="userendDate,userduration" listener="#{leaveRequestBean.onDateSelect}" global="false" />
+				</p:calendar>
+				<p:message for="userstartDate" display="icon" />
+
+				<p:calendar id="userendDate" value="#{leaveRequestBean.editLeaveRequest.toTime}" showOn="both" required="true"
+					pattern="#{config['date.format']}" readonlyInput="true" mindate="#{leaveRequestBean.editLeaveRequest.fromTime}"
+					requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}" size="10" locale="en_UK"
+					placeholder="#{msg['iwork.leaveRequest.toTime.label']}">
+					<p:ajax event="dateSelect" update="userstartDate,userduration" listener="#{leaveRequestBean.onDateSelect}" global="false" />
+				</p:calendar>
+				<p:message for="userendDate" display="icon" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="4" styleClass="textLeft">
+				<h:outputLabel for="userduration" value="#{msg['iwork.leaveRequest.datatable.column.duration.label']}" />
+				<h:panelGrid id="userDurationPanel" columns="3">
+					<p:inputText id="userduration" value="#{leaveRequestBean.editLeaveRequest.duration}" placeholder="0" size="5"
+						required="true" requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}" styleClass="textRight"
+						converterMessage="#{msg['iwork.leaveRequest.duration.nonnumber.msg']}" 	>
+						<f:validator binding="#{submitRequestDurationValidator}" />
+						<f:validator binding="#{leaveRequestRangValidator}" />
+						<f:validator binding="#{submitRequestDurationVsAvailabeBalanceValidator}" />
+					</p:inputText>(#{msg['leave.look.unit.hour']})
+					<p:link href="#" rendered="#{leaveRequestBean.userStore != null}" style="padding-left:20px" styleClass="like-link">
+						#{msg['common.available']} <h:outputText value="#{leaveRequestBean.userStore.availableBalance}" /> (#{msg['leave.look.unit.hour']})
+					</p:link>
+
+				</h:panelGrid>
+				<p:message for="userduration" display="icon" />
+			</h:panelGrid>
+			<h:panelGrid columns="1" styleClass="textLeft">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="userdesc" value="#{msg['iwork.leaveRequest.description.label']}" />
+					<p:message for="userdesc" display="icon" />
+				</h:panelGrid>
+				<pe:ckEditor id="userdesc" value="#{leaveRequestBean.editLeaveRequest.description}" required="true" skin="kama"
+					height="150"
+					toolbar="#{config['leave.editor.tools']}"
+					requiredMessage="#{msg['iwork.leaveRequest.description.require.msg']}" />
+
+			</h:panelGrid>
+		</h:panelGrid>
+		<f:facet name="footer">
+			<p:commandButton value="#{msg['iwork.leaveRequest.submit']}" action="#{leaveRequestBean.submitLeaveRequest}"
+				update=":mainForm:messages,UserRequestInfo,#{leaveRequestBean.getSubmitRequestUpdate()}"
+				styleClass="k-primary" process="userRequestdialog" />
+			<p:commandButton value="#{msg['system.button.cancel.label']}" immediate="true" style="margin-left: 5px;"
+				onclick="PF('userRequestdialog').hide();" />
+		</f:facet>
+	</p:dialog>
+</ui:composition>
+</html>

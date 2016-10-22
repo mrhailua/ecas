@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+	template="/layouts/mainLayout.xhtml">
+	<ui:define name="centerContent">
+		<p:toolbar styleClass="tool-bar">
+			<p:toolbarGroup align="left">
+				<p:commandButton id="basic" value="#{msg['system.button.add.label']}" type="button" icon="ui-icon-arrowthick-1-n"
+					onclick="PF('dlg').show();" />
+			</p:toolbarGroup>
+		</p:toolbar>
+
+		<p:dataTable id="organizationList" var="org" value="#{organizationBean.dataModel}" selectionMode="single"
+			selection="#{organizationBean.selectedOrg}" styleClass="data-table-padding-top"
+			emptyMessage="#{msg['system.common.empty']}">
+			<p:column headerText="#{msg['iwork.organization.datatable.column.name.label']}">
+				<h:outputText value="#{org.name}" />
+			</p:column>
+		</p:dataTable>
+
+		<p:dialog id="dialog" header="#{msg['iwork.organization.dialog.title']}" widgetVar="dlg" dynamic="false"  
+			resizable="false" appendTo="mainForm" modal="true" >
+			Hello 
+		</p:dialog>
+	</ui:define>
+</ui:composition>

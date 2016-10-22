@@ -1,0 +1,161 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions" template="/layouts/organizationSettingsLayout.xhtml">
+    <ui:define name="organizationContent">
+        <h:panelGrid columns="2" styleClass="textLeft padding-top padding-left" style="width: 100%">
+            <h:panelGrid id="orgInfo" columns="2" styleClass="textLeft padding-top padding-left">
+                <f:facet name="header">
+                    <h:outputText value="#{msg['leave.look.org.info.header']}"/>
+                </f:facet>
+                <p:outputLabel for="organizationName" value="#{msg['iwork.organization.datatable.column.name.label']}"/>
+                <p:inputText id="organizationName" value="#{organizationSettingBean.editOrg.name}" required="true"
+                             requiredMessage="#{msg['iwork.organization.name.require.msg']}" maxlength="255" size="90"/>
+
+
+                <p:outputLabel for="organizationDomain"
+                               value="#{msg['iwork.organization.datatable.column.domain.label']}"/>
+                <p:inputText id="organizationDomain" value="#{organizationSettingBean.editOrg.domain}" required="true"
+                             requiredMessage="#{msg['iwork.organization.name.require.msg']}" maxlength="255" size="90"/>
+
+                <p:outputLabel for="organizationDescription"
+                               value="#{msg['iwork.organization.datatable.column.desc.label']}"/>
+                <pe:ckEditor id="organizationDescription" value="#{organizationSettingBean.editOrg.description}"
+                             skin="kama"
+                             width="550" height="150" toolbar="#{config['leave.editor.tools']}"/>
+
+                <p:outputLabel for="defaultLanguage" value="#{msg['leave.look.org.setting.language.label']}"/>
+                <h:panelGrid columns="2" styleClass="textLeft">
+                    <p:selectOneMenu id="defaultLanguage" value="#{organizationSettingBean.editOrg.language}"
+                                     style="width:200px"
+                                     converter="#{language}">
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.language.default.label']}" itemValue=""/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.language.en.label']}" itemValue="en"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.language.vi.label']}" itemValue="vi"/>
+                    </p:selectOneMenu>
+                    <p:link href="#">
+                        <h:graphicImage library="images" name="question-mark-16.png" styleClass="help-icon"
+                                        title="#{helpResourceBean.getMessage('leave.look.org.setting.language.help')}"/>
+                    </p:link>
+                </h:panelGrid>
+
+                <p:outputLabel for="defaultTimezone" value="#{msg['leave.look.org.setting.timezone.label']}"/>
+                <h:panelGrid columns="2" styleClass="textLeft">
+                    <p:selectOneMenu id="defaultTimezone" value="#{organizationSettingBean.editOrg.timezone}"
+                                     style="width:200px">
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.default.label']}" itemValue=""/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_1.label']}"
+                                      itemValue="GMT+1"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_2.label']}"
+                                      itemValue="GMT+2"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_3.label']}"
+                                      itemValue="GMT+3"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_4.label']}"
+                                      itemValue="GMT+4"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_5.label']}"
+                                      itemValue="GMT+5"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_6.label']}"
+                                      itemValue="GMT+6"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_7.label']}"
+                                      itemValue="GMT+7"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_8.label']}"
+                                      itemValue="GMT+8"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_9.label']}"
+                                      itemValue="GMT+9"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_10.label']}"
+                                      itemValue="GMT+10"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_11.label']}"
+                                      itemValue="GMT+11"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmt_12.label']}"
+                                      itemValue="GMT+12"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm1.label']}"
+                                      itemValue="GMT-1"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm2.label']}"
+                                      itemValue="GMT-2"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm3.label']}"
+                                      itemValue="GMT-3"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm4.label']}"
+                                      itemValue="GMT-4"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm5.label']}"
+                                      itemValue="GMT-5"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm6.label']}"
+                                      itemValue="GMT-6"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm7.label']}"
+                                      itemValue="GMT-7"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm8.label']}"
+                                      itemValue="GMT-8"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm9.label']}"
+                                      itemValue="GMT-9"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm10.label']}"
+                                      itemValue="GMT-10"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm11.label']}"
+                                      itemValue="GMT-11"/>
+                        <f:selectItem itemLabel="#{msg['leave.look.org.setting.timezone.gmtm12.label']}"
+                                      itemValue="GMT-12"/>
+                    </p:selectOneMenu>
+                    <p:link href="#">
+                        <h:graphicImage library="images" name="question-mark-16.png" styleClass="help-icon"
+                                        title="#{helpResourceBean.getMessage('leave.look.org.setting.timezone.help')}"/>
+                    </p:link>
+                </h:panelGrid>
+
+                <p:outputLabel for="contactEmail" value="#{msg['leave.look.org.setting.contact.email.label']}"/>
+                <h:panelGrid columns="2" styleClass="textLeft">
+                    <p:inputText id="contactEmail" value="#{organizationSettingBean.editOrg.contactEmail}"
+                                 maxlength="100" size="90"/>
+                    <p:link href="#">
+                        <h:graphicImage library="images" name="question-mark-16.png" styleClass="help-icon"
+                                        title="#{helpResourceBean.getMessage('leave.look.org.setting.contact.email.help')}"/>
+                    </p:link>
+                </h:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="#{msg['system.button.save.label']}" styleClass="k-primary float-right"
+                                     process="orgInfo"
+                                     actionListener="#{organizationSettingBean.saveOrganization}"
+                                     update="messages,orgInfo"
+                                     global="false"/>
+                    <p:commandButton value="#{msg['system.button.enable.label']}"
+                                     styleClass="ui-priority-success float-right"
+                                     process="orgInfo" actionListener="#{organizationSettingBean.enableOrganization}"
+                                     global="false"
+                                     update="messages,orgInfo" rendered="#{!organizationSettingBean.editOrg.enable}"/>
+                    <p:commandButton value="#{msg['system.button.disable.label']}"
+                                     styleClass="ui-priority-danger float-right"
+                                     process="orgInfo" actionListener="#{organizationSettingBean.disableOrganization}"
+                                     global="false"
+                                     update="messages,orgInfo" rendered="#{organizationSettingBean.editOrg.enable}"/>
+                </f:facet>
+            </h:panelGrid>
+
+            <h:panelGrid id="logoPanel" columns="1" styleClass="textCenter">
+                <h:graphicImage
+                        value="/fileservice/#{organizationSettingBean.editOrg.logo.id}/#{organizationSettingBean.editOrg.logo.fileName}"
+                        rendered="#{organizationSettingBean.editOrg.logo != null}"/>
+                <p:commandButton value="#{msg['cms.setting.choose.logo']}" oncomplete="PF('dlg').show();" global="false"
+                                 immediate="true"/>
+            </h:panelGrid>
+        </h:panelGrid>
+
+        <h:outputScript>
+            function reloadpage() {
+                location.reload();
+            }
+        </h:outputScript>
+
+        <p:dialog id="dialog" header="#{msg['leave.profile.avatar.upload.title']}" widgetVar="dlg" dynamic="true"
+                  position="center,center" resizable="false" appendTo="mainForm" modal="true">
+            <p:ajax event="close" update="dialog"/>
+            <h:panelGrid id="logoDocument" columns="1" styleClass="textLeft">
+                <p:fileUpload fileUploadListener="#{organizationSettingBean.handleUploadDocument}" mode="advanced"
+                              dragDropSupport="false"
+                              update="messages,logoPanel" sizeLimit="#{config['avatar.file.max.limit']}"
+                              oncomplete="PF('dlg').hide()" label="#{msg['iwork.repository.file.upload.choose']}"
+                              uploadLabel="#{msg['iwork.repository.file.upload.upload']}"
+                              cancelLabel="#{msg['iwork.repository.file.upload.cancel']}" styleClass="upload-panel"
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                              invalidFileMessage="#{msg['iwork.repository.mesage.error.invalid.file']}"
+                              invalidSizeMessage="#{msg['iwork.repository.mesage.error.invalid.size.file']}"/>
+            </h:panelGrid>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

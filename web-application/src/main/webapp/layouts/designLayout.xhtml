@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/layouts/masterLayout.xhtml">
+    <ui:define name="metadata">
+        <pe:head title="#{organizationContext.workingOrganization.name}" shortcutIcon="#{request.contextPath}/favicon.ico">
+            <f:facet name="first">
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta content="width=device-width, initial-scale=1" name="viewport" />
+            </f:facet>
+        </pe:head>
+    </ui:define>
+    <ui:define name="resources-app">
+        <ui:include src="/sections/shared/resources-app.xhtml" />
+    </ui:define>
+    <ui:define name="header">
+        <ui:include src="/sections/organization/header.xhtml" />
+    </ui:define>
+    <ui:define name="footer">
+        <ui:include src="/sections/system/footer.xhtml" />
+    </ui:define>
+    <ui:define name="centerContent">
+        <pe:layoutPane position="west" closable="false" resizable="false" slidable="false"
+                       spacingOpen="0">
+            <f:facet name="header">
+                <h:outputText value="#{msg['menu.design.title']}"/>
+            </f:facet>
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" class="#{navigationContext.getActiveClass('design')}"><a href="#{request.contextPath}/views/design/pages.xhtml">#{msg['menu.design.pages']}</a></li>
+                <li role="presentation" class="#{navigationContext.getActiveClass('resource')}"><a href="#{request.contextPath}/views/design/resources.xhtml">#{msg['menu.design.resource']}</a></li>
+            </ul>
+        </pe:layoutPane>
+        <pe:layoutPane position="center" closable="false" resizable="false" slidable="false"
+                       styleClassContent="textCenter centerContent"
+                       spacingOpen="0">
+            <ui:insert name="organizationContent"/>
+        </pe:layoutPane>
+    </ui:define>
+</ui:composition>
+</html>

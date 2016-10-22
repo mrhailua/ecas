@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+	template="/layouts/userProfileLayout.xhtml">
+	<ui:define name="organizationContent">
+		<h:panelGroup layout="block" styleClass="centerLogin">
+			<h:panelGrid columns="1">
+				<h:panelGrid columns="2" styleClass="centerProfile">
+					<h:panelGrid columns="2" id="userProfilePanel">
+						<p:outputLabel for="name" value="#{msg['iwork.login.form.name.label']}" />
+						<p:inputText id="name" value="#{profileBean.user.name}" required="true" size="50"
+							requiredMessage="#{msg['iwork.sign.up.fullname.require.msg']}" />
+
+						<p:outputLabel for="userNameTxt" value="#{msg['iwork.login.form.username.label']}" />
+						<p:inputText id="userNameTxt" value="#{profileBean.user.email}" readonly="true" size="50" />
+
+						<f:facet name="footer">
+							<p:commandButton value="#{msg['system.button.save.label']}" action="#{profileBean.saverUserProfile}"
+								update=":mainForm:userProfilePanel,:mainForm:messages" styleClass="k-primary" process="userProfilePanel" />
+							<p:commandButton value="#{msg['system.button.change.pass.label']}" immediate="true" style="margin-left: 5px;"
+								global="false"  onclick="PF('changePassDialog').show();" />
+						</f:facet>
+					</h:panelGrid>
+					<h:panelGrid id="avatarPanel" columns="1">
+						<h:graphicImage value="/fileservice/#{profileBean.user.avatar.id}/#{profileBean.user.avatar.fileName}"
+							styleClass="profile-avatar" title="#{profileBean.user.name}" rendered="#{profileBean.user.avatar != null}" />
+						<p:commandButton value="#{msg['system.button.add.avatar.label']}" oncomplete="PF('dlg').show();" global="false" immediate="true" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:panelGroup>
+
+		<p:dialog id="changePassDialog" header="#{msg['iwork.change.pass.dialog.title']}" widgetVar="changePassDialog"
+			position="center,center" resizable="false" appendTo="mainForm" modal="true" width="540" height="100">
+			<h:panelGrid id="changePassPanel" columns="1" styleClass="textLeft">
+				<h:panelGrid columns="2">
+					<p:password id="currentPassword" value="#{profileBean.currentPassword}" required="true" size="80"
+						placeholder="#{msg['leave.change.pass.form.current.password.label']}"
+						requiredMessage="#{msg['leave.store.datatable.column.select.require.msg']}" />
+					<p:message for="currentPassword" display="icon" />
+
+					<p:password id="newpassword" value="#{profileBean.newPassword}" required="true" size="80"
+						placeholder="#{msg['leave.change.pass.form.password.label']}"
+						requiredMessage="#{msg['leave.store.datatable.column.select.require.msg']}" match="repeatPassword"
+						validatorMessage="#{msg['iwork.sign.up.password.match.msg']}" />
+					<p:message for="newpassword" display="icon" />
+
+					<p:password id="repeatPassword" value="#{profileBean.repeatPassword}" size="80"
+						placeholder="#{msg['iwork.login.form.password.repeat.label']}" />
+					<p:message for="repeatPassword" display="icon" />
+				</h:panelGrid>
+			</h:panelGrid>
+			<f:facet name="footer">
+				<p:commandButton value="#{msg['system.button.change.label']}" action="#{profileBean.changePass}"
+					process="changePassDialog" styleClass="k-primary" update="changePassPanel,messages" />
+				<p:commandButton value="#{msg['system.button.cancel.label']}" immediate="true" global="false"  style="margin-left: 5px;"
+					onclick="PF('changePassDialog').hide();" />
+			</f:facet>
+		</p:dialog>
+
+		<p:dialog id="dialog" header="#{msg['leave.profile.avatar.upload.title']}" widgetVar="dlg" dynamic="true"
+			position="center,center" resizable="false" appendTo="mainForm" modal="true">
+			<p:ajax event="close" update="dialog" />
+			<h:panelGrid id="profileDocument" columns="1" styleClass="textLeft">
+				<p:fileUpload fileUploadListener="#{profileBean.handleUploadDocument}" mode="advanced" dragDropSupport="false"
+					update="messages,avatarPanel,:mainForm:profileLink" sizeLimit="#{config['avatar.file.max.limit']}"
+					oncomplete="PF('dlg').hide()" label="#{msg['iwork.repository.file.upload.choose']}"
+					uploadLabel="#{msg['iwork.repository.file.upload.upload']}"
+					cancelLabel="#{msg['iwork.repository.file.upload.cancel']}" styleClass="upload-panel"
+					allowTypes="/(\.|\/)(gif|jpe?g|png)$/" invalidFileMessage="#{msg['iwork.repository.mesage.error.invalid.file']}" 
+					invalidSizeMessage="#{msg['iwork.repository.mesage.error.invalid.size.file']}" />
+			</h:panelGrid>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+
+
+
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:component-scan base-package="com.ecas.business,com.ecas.validate"/>
+
+
+    <bean id="defaultResourceLoader" class="org.springframework.core.io.DefaultResourceLoader">
+    </bean>
+
+    <bean id="systemTemplateLoader" class="org.springframework.ui.freemarker.SpringTemplateLoader">
+        <constructor-arg>
+            <ref bean="defaultResourceLoader" />
+        </constructor-arg>
+
+        <constructor-arg>
+            <value>classpath:/templates</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="systemMarkerConfigure" class="freemarker.template.Configuration">
+        <property name="templateLoader" ref="systemTemplateLoader"/>
+    </bean>
+
+    <bean id="activeProfileEmailService" class="com.ecas.business.mail.ActiveProfileMailServiceImpl">
+        <property name="subjectTemplate" value="activate-subject.ftl"/>
+        <property name="bodyTemplate" value="activate-body.ftl"/>
+        <property name="systemMarkerConfigure" ref="systemMarkerConfigure"/>
+        <property name="emailService" ref="mailService"/>
+    </bean>
+
+    <bean id="inviteEmailService" class="com.ecas.business.mail.InviteMailServiceImpl">
+        <property name="subjectTemplate" value="invite-subject.ftl"/>
+        <property name="bodyTemplate" value="invite-body.ftl"/>
+        <property name="systemMarkerConfigure" ref="systemMarkerConfigure"/>
+        <property name="emailService" ref="mailService"/>
+    </bean>
+</beans>

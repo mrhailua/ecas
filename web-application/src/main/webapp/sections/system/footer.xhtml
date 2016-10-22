@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition>
+	<p class="footer">
+		<p:outputLabel value="#{msg['com.cms.slogan.msg']}" rendered="#{organizationContext.workingOrganization.main}"/>
+		<p:outputLabel value="#{organizationContext.workingOrganization.name}" rendered="#{!organizationContext.workingOrganization.main}"/>
+
+		<p:commandLink ajax="true" global="false" style="padding-left:10px;float:right" actionListener="#{languageBean.determineLocale}" process="@this"
+			oncomplete="location.reload();">
+			<f:attribute name="countryCode" value="vi" />
+			<h:outputText value="#{msg['leave.look.language.vi']}" />
+		</p:commandLink>
+		<p:commandLink ajax="true" global="false" style=" float:right" actionListener="#{languageBean.determineLocale}" process="@this"
+			oncomplete="location.reload();">
+			<f:attribute name="countryCode" value="en" />
+			<h:outputText value="#{msg['leave.look.language.en']}" />
+		</p:commandLink>
+	</p>
+	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" onerror="location.reload();" />
+	<p:dialog id="statusDialog" widgetVar="statusDialog" draggable="false" closable="false" resizable="false"
+		showHeader="false" modal="true">
+		<h:graphicImage library="images" name="loader.gif" alt="AJAX Status" />
+	</p:dialog>
+</ui:composition>
+</html>

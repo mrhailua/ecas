@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+	template="/layouts/userProfileLayout.xhtml">
+	<ui:define name="organizationContent">
+		<p:dataTable id="messageList" var="message" value="#{userNotificationMessageBean.userMessageModel}" lazy="true"
+			styleClass="textLeft" emptyMessage="#{msg['system.common.empty']}" rows="10" paginator="true"
+			paginatorPosition="bottom" paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="10,15,20">
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="#{msg['leave.look.notification.header']}" />
+					<p:link href="#" style="float:right">
+						<h:graphicImage library="images" name="question-mark-16.png" styleClass="help-icon"
+							title="#{helpResourceBean.getMessage('leave.look.page.notification.help')}" />
+					</p:link>
+				</p:outputPanel>
+			</f:facet>
+			<p:ajax event="page" global="false" />
+
+			<p:column headerText="#{msg['leave.look.notification.from']}" width="80">
+				<h:outputText value="#{message.requestUser.name}" title="#{message.requestUser.email}" />
+			</p:column>
+
+			<p:column headerText="#{msg['leave.look.notification.content']}" styleClass="textLeft">
+				<h:outputText value="#{message.description}" escape="false" />
+			</p:column>
+
+			<p:column headerText="#{msg['leave.look.notification.action']}" width="70" styleClass="textCenter">
+				<p:commandButton actionListener="#{userNotificationMessageBean.markRead}" rendered="#{!message.read}"
+					process="@this" update="messageList" 
+					global="false" value="#{msg['leave.look.notification.header.action.read']}" icon="ui-icon-check">
+					<f:attribute name="messageId" value="#{message.id}" />
+				</p:commandButton>
+			</p:column>
+
+			<p:column headerText="#{msg['leave.look.notification.link']}" width="40" styleClass="textCenter">
+				<h:link outcome="#{message.targetUrl}">
+					<h:graphicImage library="images" name="external-link-24.png" styleClass="action-icon"
+						title="#{msg['leave.look.notification.link.open']}" />
+				</h:link>
+			</p:column>
+
+			<p:column headerText="#{msg['leave.look.notification.on.date']}" width="80" styleClass="textCenter">
+				<h:outputText value="#{message.updateTimeByDate}" style="padding-left:10px" styleClass="leave-date">
+					<f:convertDateTime pattern="#{config['date.format']}" />
+				</h:outputText>
+			</p:column>
+
+
+		</p:dataTable>
+	</ui:define>
+</ui:composition>

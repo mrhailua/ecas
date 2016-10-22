@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<f:view contentType="text/html" locale="#{languageBean.localeCode}">
+	<ui:insert name="metadata">
+		<pe:head title="#{organizationContext.workingOrganization.name}" shortcutIcon="#{request.contextPath}/favicon.ico">
+			<f:facet name="first">
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+				<meta http-equiv="pragma" content="no-cache" />
+				<meta http-equiv="cache-control" content="no-cache" />
+				<meta http-equiv="expires" content="0" />
+			</f:facet>
+		</pe:head>
+	</ui:insert>
+
+	<h:body style="text-align: center;background-color:#f5f5f5">
+		<pe:layout id="fpl" options="#{loginLayout.options}" fullPage="true">
+			<h:form id="loginForm" prependId="false">
+				<p:growl id="messages" showDetail="false" />
+				<pe:tooltip global="true" myPosition="left center" atPosition="right center" />
+				<ui:insert name="center" />
+			</h:form>
+		</pe:layout>
+		<ui:insert name="resources-app" />
+	</h:body>
+</f:view>
+</html>

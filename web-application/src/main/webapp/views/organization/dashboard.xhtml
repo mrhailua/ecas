@@ -1,0 +1,255 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="/layouts/dashboardLayout.xhtml">
+    <ui:define name="organizationContent">
+        <p:panel styleClass="textLeft no-border" rendered="#{!organizationContext.organizationAvailable}">
+            <h:outputText value="#{applicationBean.commontTexts['dashboard.organization.instroduce']}" escape="false"/>
+            <p:commandButton value="#{msg['iwork.organization.start']}" styleClass="k-primary" icon="ui-icon-plus"
+                             actionListener="#{organizationBean.addOrganization}" oncomplete="PF('dlg').show();"
+                             update="dialog"/>
+        </p:panel>
+
+        <p:panel styleClass="textCenter no-border" style="max-width:1024px"
+                 rendered="#{organizationContext.organizationAvailable}">
+            <div class="row margin-top-10">
+                <ui:repeat var="leaveStore" value="#{dashboardBean.stores}" varStatus="status">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat2">
+                            <div class="display">
+                                <div class="number">
+                                    <h3 class="font-#{dashboardBean.getStyle(status.index)}">
+                                        #{dashboardBean.getTimeString(leaveStore.availableBalance)}
+                                        <small class="font-#{dashboardBean.getStyle(status.index)}"></small>
+                                    </h3>
+                                    <small>#{leaveStore.leaveType.name}</small>
+                                </div>
+                                <div class="icon">
+                                    <i class="icon-pie-chart"></i>
+                                </div>
+                            </div>
+                            <div class="progress-info">
+                                <div class="progress">
+									<span style="width: 100%;"
+                                          class="progress-bar progress-bar-success #{dashboardBean.getStyle(status.index)}">
+									</span>
+                                </div>
+                                <div class="status">
+                                    <div class="status-title">#{msg['iwork.dashboard.leave.blocked.store']}</div>
+                                    <div class="status-number">#{dashboardBean.getTimeString(leaveStore.blockBalance)}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </p:panel>
+        <p:panel id="approvalTask" styleClass="textCenter no-border" style="max-width:1280px"
+                 rendered="#{organizationContext.organizationAvailable}">
+            <div class="row">
+                <c:if test="${dashboardBean.userRequest.size() > 0}">
+                    <div class="col-md-6 col-sm-12">
+                        <!-- BEGIN PORTLET-->
+                        <div class="portlet light tasks-widget">
+                            <div class="portlet-title">
+                                <div class="caption caption-md">
+                                    <i class="icon-bar-chart theme-font-color hide"></i> <span
+                                        class="caption-subject theme-font-color bold uppercase">#{msg['dashboard.approval.recent.request.label']}</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="task-content">
+                                    <div class="scroller" style="height: 282px;" data-always-visible="1"
+                                         data-rail-visible1="0"
+                                         data-handle-color="#D7DCE2">
+                                        <!-- START TASK LIST -->
+                                        <ul class="task-list">
+                                            <ui:repeat var="yourRequest" value="#{dashboardBean.userRequest}">
+                                                <li style="text-align: left">
+                                                    <div class="task-title">
+														<span class="task-title-sp"> 
+																<h:link outcome="/views/organization/request/view.xhtml"
+                                                                        styleClass="leave-id">
+                                                                    <f:param name="id"
+                                                                             value="#{yourRequest.id}"></f:param>
+                                                                    <h:outputText value="#{yourRequest.idText}"
+                                                                                  title="#{yourRequest.description}"/>
+                                                                </h:link>
+																<h:outputText value="#{yourRequest.user.name}"
+                                                                              style="padding-left:10px"
+                                                                              title="#{yourRequest.user.email}"/>
+																<h:outputText value="#{yourRequest.fromTime}"
+                                                                              style="padding-left:10px"
+                                                                              styleClass="leave-date">
+                                                                    <f:convertDateTime
+                                                                            pattern="#{config['date.format']}"/>
+                                                                </h:outputText>
+																<h:outputText value="-"
+                                                                              rendered="#{!yourRequest.onSingleDate}"/>
+																<h:outputText value="#{yourRequest.toTime}"
+                                                                              styleClass="leave-date">
+                                                                    <f:convertDateTime
+                                                                            pattern="#{config['date.format']}"/>
+                                                                </h:outputText>
+																<h:outputText
+                                                                        value="#{msg['iwork.leaveRequest.datatable.column.duration.label']}"
+                                                                        style="padding-left:10px"/>: <h:outputText
+                                                                value="#{dashboardBean.getTimeString(yourRequest.duration)}"/>
+																<h:outputText value="#{yourRequest.description}"
+                                                                              style="width:100%" escape="false"/>
+														</span> 
+														<span class="label label-sm label-info"> 
+															<h:outputText value="#{yourRequest.leaveType.name}"
+                                                                          title="#{yourRequest.leaveType.description}"/>
+														</span> 
+														<span style="margin-left:10px"> 
+															<h:graphicImage library="images"
+                                                                            name="checked-checkbox-24.png"
+                                                                            title="#{yourRequest.status}"
+                                                                            style="height:18px"
+                                                                            rendered="#{yourRequest.status == 'Approved'}"/>
+															<h:graphicImage library="images" name="x-mark-5-24.png"
+                                                                            title="#{leaveRequest.status}"
+                                                                            style="height:18px"
+                                                                            rendered="#{yourRequest.status == 'Rejected'}"/>
+															<h:graphicImage library="images" name="time-12-24.png"
+                                                                            title="#{yourRequest.status}"
+                                                                            style="height:18px"
+                                                                            rendered="#{yourRequest.status == 'Waiting'}"/>
+															<h:graphicImage library="images" name="close-window-24.png"
+                                                                            title="#{yourRequest.status}"
+                                                                            style="height:18px"
+                                                                            rendered="#{yourRequest.status == 'Closed' || yourRequest.status == 'Canceled'}"/>
+														</span>
+                                                    </div>
+                                                </li>
+                                            </ui:repeat>
+                                        </ul>
+                                        <!-- END START TASK LIST -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END PORTLET-->
+                    </div>
+                </c:if>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption caption-md">
+                                <i class="icon-bar-chart theme-font-color hide"></i> <span
+                                    class="caption-subject theme-font-color bold uppercase">#{msg['dashboard.public.holiday.portlet.label']}</span>
+								<span class="caption-helper"><h:outputText
+                                        value="#{fn:length(dashboardBean.orgHoliday)}"/>
+                                    #{msg['iwork.user.holiday']}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0"
+                                 data-handle-color="#D7DCE2">
+                                <div class="general-item-list">
+                                    <ui:repeat var="holiday" value="#{dashboardBean.orgHoliday}">
+                                        <div class="item">
+                                            <div class="item-head">
+                                                <div class="item-details">
+                                                    <a href="#" class="item-name primary-link"> <h:outputText
+                                                            value="#{holiday.name}"
+                                                            title="#{holiday.description}"/>
+                                                    </a>
+													<span class="item-label"> 
+														<h:outputText value="#{holiday.fromDate}"
+                                                                      title="#{holiday.description}"
+                                                                      styleClass="leave-date">
+                                                            <f:convertDateTime pattern="#{config['date.format']}"/>
+                                                        </h:outputText>
+														<h:outputText value="-" rendered="#{!holiday.onSingleDate}"/>
+														<h:outputText value="#{holiday.toDate}"
+                                                                      title="#{holiday.description}"
+                                                                      rendered="#{!holiday.onSingleDate}"
+                                                                      styleClass="leave-date">
+                                                            <f:convertDateTime pattern="#{config['date.format']}"/>
+                                                        </h:outputText>
+													</span>
+                                                </div>
+												<span class="item-status">
+													<span class="badge badge-empty badge-success"></span> 
+													<h:outputText value="#{holiday.status}"/>
+												</span>
+                                            </div>
+                                            <div class="item-body" style="text-align: left">
+                                                <p:outputLabel value="#{holiday.description}" escape="false"/>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PORTLET-->
+
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <!-- BEGIN PORTLET-->
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption caption-md">
+                                <i class="icon-bar-chart theme-font-color hide"></i> <span
+                                    class="caption-subject theme-font-color bold uppercase">#{msg['dashboard.approval.schedule.label']}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="task-content">
+                                <div class="scroller" style="height: 382px;" data-always-visible="1"
+                                     data-rail-visible1="0"
+                                     data-handle-color="#D7DCE2">
+                                    <!-- START TASK LIST -->
+                                    <p:schedule id="leaveBoard" value="#{dashboardBean.leaveEventModel}"
+                                                centerTemplate="month"
+                                                rightHeaderTemplate="next" leftHeaderTemplate="prev">
+
+                                    </p:schedule>
+                                    <!-- END START TASK LIST -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PORTLET-->
+                </div>
+            </div>
+        </p:panel>
+
+        <p:dialog id="dialog" header="#{msg['iwork.organization.dialog.title']}" widgetVar="dlg" dynamic="true"
+                  position="center,center" resizable="false" appendTo="mainForm" modal="true" width="680" height="280">
+            <p:ajax event="close" update="dialog" global="false"/>
+            <h:panelGrid id="organizationPanel" columns="2" styleClass="textCenter">
+
+                <p:outputLabel for="organizationName" value="#{msg['iwork.organization.datatable.column.name.label']}"/>
+                <p:inputText id="organizationName" value="#{organizationBean.createOrg.name}" required="true"
+                             requiredMessage="#{msg['iwork.organization.name.require.msg']}" maxlength="255" size="90"/>
+
+                <p:outputLabel for="organizationDescription"
+                               value="#{msg['iwork.organization.datatable.column.desc.label']}"/>
+                <pe:ckEditor id="organizationDescription" value="#{organizationBean.createOrg.description}" skin="kama"
+                             width="550"
+                             height="150"
+                             toolbar="#{config['leave.editor.tools']}"/>
+
+            </h:panelGrid>
+            <f:facet name="footer">
+                <p:commandButton value="#{msg['system.button.save.label']}" styleClass="k-primary"
+                                 actionListener="#{organizationBean.saveOrganization}"/>
+                <p:commandButton value="#{msg['system.button.cancel.label']}" immediate="true" style="margin-left: 5px;"
+                                 global="false"
+                                 onclick="PF('dlg').hide();"/>
+            </f:facet>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>

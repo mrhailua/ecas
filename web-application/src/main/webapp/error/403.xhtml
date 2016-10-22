@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions" template="/layouts/errorLayout.xhtml">
+	<ui:define name="centerContent">
+		<div class="row" style="margin-right: 0; margin-left: 0; padding-top: 30px">
+			<div class="col-md-10 page-404">
+				<div class="number">403</div>
+				<div class="details">
+					<h3>Oops! You're lost.</h3>
+					<p>
+						You do not have permission to access page.<br /> <a href="#{request.contextPath}/views/login.xhtml"> Return home </a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

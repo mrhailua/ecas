@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+	template="/layouts/loginLayout.xhtml">
+	<ui:define name="centerContent">
+		<h:panelGroup layout="block" styleClass="centerLogin">
+			<p:outputPanel>
+				<h:outputText value="#{msg['leave.look.registraition.email.notification']}" styleClass="notification-msg "/>
+			</p:outputPanel>
+			<h:panelGrid columns="2" styleClass="textLeft">
+				<p:outputLabel for="userName" value="#{msg['iwork.login.form.name.label']}" styleClass="activation-label" />
+				<p:inputText id="userName" value="#{profileBean.user.name}" size="50" readonly="true" />
+
+				<p:outputLabel for="userNameActivateCode" value="#{msg['iwork.login.form.activate.code.label']}" styleClass="activation-label" />
+				<p:inputText id="userNameActivateCode" value="#{profileBean.activationCode}" size="50"
+					placeholder="#{msg['iwork.login.form.activate.code.label']}" />
+
+				<f:facet name="footer">
+					<p:commandButton value="#{msg['system.button.active.label']}" action="#{profileBean.activateUserProfile}"
+						update="messages" styleClass="k-primary" />
+					<p:commandButton value="#{msg['system.button.resend.label']}" action="#{profileBean.resendActivateCode}"
+						update="messages" />
+				</f:facet>
+			</h:panelGrid>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
