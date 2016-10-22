@@ -6,7 +6,6 @@ import com.ecas.exception.UserExistedException;
 import com.ecas.service.GenerateCodeUtil;
 import com.ecas.service.UserDataService;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -72,10 +71,7 @@ public class UserDataServiceImpl extends GenericDataServiceImpl<User> implements
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Criteria criteria = getCriteria();
-        User worker = (User) criteria.add(Restrictions.eq("email", username))
-                .add(Restrictions.eq("userEnable", true)).setFetchMode("organization", FetchMode.JOIN)
-                .setFetchMode("department", FetchMode.JOIN).setFetchMode("department.location", FetchMode.JOIN)
-                .setFetchMode("avatar", FetchMode.JOIN).uniqueResult();
+        User worker = (User) criteria.add(Restrictions.eq("email", username)).uniqueResult();
         if (worker == null) {
             throw new UsernameNotFoundException("There is no user with email:" + username);
         }

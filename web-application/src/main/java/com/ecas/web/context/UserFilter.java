@@ -25,7 +25,7 @@ public class UserFilter extends GenericFilterBean {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 	        ServletException {
 		HttpServletRequest httpRequest = ((HttpServletRequest) request);
-		User worker = (User) httpRequest.getSession().getAttribute(BaseBean.WORKER_CONTEXT_SESSION_KEY);
+		User worker = (User) httpRequest.getSession().getAttribute(BaseBean.USER_CONTEXT_SESSION_KEY);
 
 		if ((worker != null) && worker.isDelete()) {
 			((HttpServletResponse) response).sendRedirect(httpRequest.getContextPath() + "/views/user/deleted.xhtml");

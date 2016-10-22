@@ -23,27 +23,33 @@ public class User extends AbstractDomain implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id = 0;
 
-    @Column(name = "EMAIL", length = 100)
+    @Column(name = "email")
     private String email;
 
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "STATUS")
+    @Column(name = "status", length = 20)
+    @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "ACTIVATION_CODE", length = 45)
+    @Column(name = "activation_code", length = 45)
     private String activationCode;
 
-    @Column(name = "EXPIRABLE")
+    @Column(name = "expirable")
     private boolean expirable;
 
+    @Column(name = "system_admin")
+    private boolean systemAdmin;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_has_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles = new ArrayList<Role>();
 
     @Override
@@ -73,17 +79,17 @@ public class User extends AbstractDomain implements Serializable, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return expirable;
+        return status != null && status != UserStatus.Expire;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return status != null && status == UserStatus.Lock;
+        return status != null && status != UserStatus.Lock;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return status == null || status == UserStatus.Expire;
+        return status == null || status != UserStatus.Expire;
     }
 
     @Override
@@ -127,14 +133,6 @@ public class User extends AbstractDomain implements Serializable, UserDetails {
         this.activationCode = activationCode;
     }
 
-    public boolean isExpirable() {
-        return expirable;
-    }
-
-    public void setExpirable(boolean expirable) {
-        this.expirable = expirable;
-    }
-
     public List<Role> getRoles() {
         return roles;
     }
@@ -149,5 +147,21 @@ public class User extends AbstractDomain implements Serializable, UserDetails {
 
     public void activate() {
         status = UserStatus.Active;
+    }
+
+    public boolean isExpirable() {
+        return expirable;
+    }
+
+    public void setExpirable(boolean expirable) {
+        this.expirable = expirable;
+    }
+
+    public boolean isSystemAdmin() {
+        return systemAdmin;
+    }
+
+    public void setSystemAdmin(boolean systemAdmin) {
+        this.systemAdmin = systemAdmin;
     }
 }

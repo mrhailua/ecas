@@ -16,24 +16,25 @@ public class Role extends BaseDomain implements java.io.Serializable {
     private static final long serialVersionUID = 8248943666497556860L;
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "NAME", length = 255, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "ACTIVE")
+    @Column(name = "active")
     private boolean active;
 
     @Lob
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "APPLICATION_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "ROLE_HAS_PERMISSION", joinColumns = {@JoinColumn(name = "ROLE_ID")}, inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID")})
+    @JoinTable(name = "role_has_permission", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "permission_id")})
     private List<Permission> permissions;
 
     @Override

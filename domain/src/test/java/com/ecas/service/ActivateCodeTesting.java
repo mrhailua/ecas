@@ -8,9 +8,9 @@ public class ActivateCodeTesting {
 	static Logger log = Logger.getLogger(ActivateCodeTesting.class.getName());
 
 	@Test
-	public void configureDbTest() {
-		String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		log.info(RandomStringUtils.random(20, AB));
+	public void testGenerateActivationCodeTest() {
+		String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		log.info(RandomStringUtils.random(8, AB));
 	}
 
 }

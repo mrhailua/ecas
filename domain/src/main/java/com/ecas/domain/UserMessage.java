@@ -28,24 +28,24 @@ public class UserMessage extends BaseDomain implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private int id;
 
     @Lob
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TO_USER_ID", nullable = false)
+    @JoinColumn(name = "to_user_id", nullable = false)
     private User toUser;
 
-    @Column(name = "IS_READ")
+    @Column(name = "is_read")
     private boolean read;
 
-    @Column(name = "TARGET_URL")
+    @Column(name = "target_url")
     private String targetUrl;
 
     @Override

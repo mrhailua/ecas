@@ -18,27 +18,28 @@ public class APIKey extends BaseDomain implements java.io.Serializable {
     private static final long serialVersionUID = 8248943666497556860L;
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "NAME", length = 255, nullable = false)
+    @Column(name = "name", length = 255, nullable = false)
     private String name;
 
-    @Column(name = "ACTIVE")
+    @Column(name = "active")
     private boolean active;
 
     @Lob
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "CODE")
+    @Column(name = "code")
     private String code;
 
-    @Column(name = "WHITE_LIST_IP")
+    @Column(name = "white_list_ip")
     private String whiteListIP;
 
-    @Column(name = "API_ID")
-    private String API;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "api_id", nullable = false)
+    private API api;
 
     @Override
     public Integer getId() {
@@ -90,11 +91,11 @@ public class APIKey extends BaseDomain implements java.io.Serializable {
         this.whiteListIP = whiteListIP;
     }
 
-    public String getAPI() {
-        return API;
+    public API getApi() {
+        return api;
     }
 
-    public void setAPI(String API) {
-        this.API = API;
+    public void setApi(API api) {
+        this.api = api;
     }
 }

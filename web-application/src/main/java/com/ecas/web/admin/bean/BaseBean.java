@@ -29,7 +29,7 @@ import java.util.Locale;
 public abstract class BaseBean implements Serializable {
     static Logger log = Logger.getLogger(BaseBean.class.getName());
 
-    public static final String WORKER_CONTEXT_SESSION_KEY = "WORKER_CONTEXT_SESSION";
+    public static final String USER_CONTEXT_SESSION_KEY = "WORKER_CONTEXT_SESSION";
     public static final String DEFAULT_DATE_FORMAT = "dd/MM/yyyy";
     private static final long serialVersionUID = 20120423L;
     @ManagedProperty(value = "#{serviceRegistry}")
@@ -98,7 +98,7 @@ public abstract class BaseBean implements Serializable {
     }
 
     protected void reloadWorkerContext() {
-        getSession().setAttribute(WORKER_CONTEXT_SESSION_KEY,
+        getSession().setAttribute(USER_CONTEXT_SESSION_KEY,
                 (User) userDetailsService.loadUserByUsername(SecurityUtil.getCurrentUser()));
     }
 
@@ -107,7 +107,7 @@ public abstract class BaseBean implements Serializable {
     }
 
     public User getCurrentUser() {
-        Object obj = getSession().getAttribute(WORKER_CONTEXT_SESSION_KEY);
+        Object obj = getSession().getAttribute(USER_CONTEXT_SESSION_KEY);
         if (obj != null) {
             return (User) obj;
         }

@@ -20,16 +20,16 @@ public class Setting extends BaseDomain implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private int id;
 
-    @Column(name = "TIMEZONE", length = 10)
+    @Column(name = "timezone", length = 10)
     private String timezone;
 
-    @Column(name = "CONTACT_EMAIL", length = 100)
+    @Column(name = "contact_email", length = 100)
     private String contactEmail;
 
-    @Column(name = "WEB_DOMAIN")
+    @Column(name = "web_domain")
     private String webdomain;
 
     @Override

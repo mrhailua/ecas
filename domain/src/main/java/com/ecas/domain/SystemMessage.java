@@ -22,11 +22,11 @@ public class SystemMessage extends BaseDomain implements java.io.Serializable {
     private static final long serialVersionUID = -3407812439563831240L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private int id;
-    @Column(name = "CODE", length = 255, nullable = false)
+    @Column(name = "code", nullable = false)
     private String code;
-    @Column(name = "VALUE", length = 1000)
+    @Column(name = "value", length = 1000)
     private String value;
 
     public SystemMessage() {

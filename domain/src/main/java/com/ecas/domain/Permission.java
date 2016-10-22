@@ -15,23 +15,23 @@ public class Permission extends BaseDomain implements java.io.Serializable {
     private static final long serialVersionUID = 8248943666497556860L;
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "ACTIVE")
+    @Column(name = "active")
     private boolean active;
 
     @Lob
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "APPLICATION_ID")
+    @Column(name = "application_id")
     private Application application;
 
-    @Column(name = "APPROVER_ID")
+    @Column(name = "approve_user_id")
     private User approver;
 
     @Override

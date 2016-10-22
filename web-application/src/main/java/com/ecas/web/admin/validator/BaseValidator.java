@@ -28,7 +28,7 @@ public abstract class BaseValidator {
     }
 
     public User getCurrentUser() {
-        Object obj = getSession().getAttribute(BaseBean.WORKER_CONTEXT_SESSION_KEY);
+        Object obj = getSession().getAttribute(BaseBean.USER_CONTEXT_SESSION_KEY);
         if (obj != null) {
             return (User) obj;
         }

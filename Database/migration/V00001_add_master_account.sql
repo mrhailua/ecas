@@ -1,0 +1,2 @@
+# Insert system admin user [sysadmin@ecas.org] with password [k$w6%WTF]
+insert into ecas_user(email,EXPIRABLE,name,`PASSWORD`,STATUS) value ('sysadmin@ecas.org',false,'System Admin','$2a$15$qtqcNiDzt74A1flHArClNu3ngT6xjBAK2l2J3Ec.hXlBkjcc72ekK','Active');

@@ -17,24 +17,24 @@ public class API extends BaseDomain implements java.io.Serializable {
     private static final long serialVersionUID = 8248943666497556860L;
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "NAME", length = 255, nullable = false)
+    @Column(name = "name", length = 255, nullable = false)
     private String name;
 
-    @Column(name = "ACTIVE")
+    @Column(name = "active")
     private boolean active;
 
     @Lob
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "APPLICATION_ID")
+    @ManyToOne
+    @JoinColumn(name="application_id")
     private Application application;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "API_ID", nullable = false)
+    @OneToMany(mappedBy="api")
     private List<APIKey> keys;
 
     @Override

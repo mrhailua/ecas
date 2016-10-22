@@ -13,22 +13,20 @@ public class Application extends BaseDomain implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "NAME", nullable = false, length = 255)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "DESCRIPTION", nullable = false)
+    @Column(name = "description", nullable = false)
     @Lob
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "APPLICATION_ID", nullable = false)
+    @OneToMany(mappedBy="application")
     private List<API> apis;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "APPLICATION_D", nullable = false)
+    @OneToMany(mappedBy="application")
     private List<Role> roles;
 
     public Integer getId() {

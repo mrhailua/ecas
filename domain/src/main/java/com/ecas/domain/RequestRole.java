@@ -16,16 +16,16 @@ public class RequestRole extends BaseDomain implements java.io.Serializable {
     private static final long serialVersionUID = 8248943666497556860L;
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "REQUEST_USER_ID")
+    @Column(name = "request_user_id")
     private User requestUser;
 
-    @Column(name = "APPROVE_USER_ID")
+    @Column(name = "approve_user_id")
     private User approver;
 
-    @Column(name = "STATUS")
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ApprovalStatus status;
 

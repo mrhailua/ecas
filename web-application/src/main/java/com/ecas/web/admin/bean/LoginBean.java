@@ -25,7 +25,7 @@ public class LoginBean extends BaseBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        //setUser(new User());
+        setUser(new User());
     }
 
     public String login() {
