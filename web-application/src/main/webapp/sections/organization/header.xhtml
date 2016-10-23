@@ -17,63 +17,21 @@
             <li class="separator hide"></li>
 
             <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
-                <h:link outcome="/views/organization/dashboard.xhtml"
-                        styleClass="#{navigationContext.getActiveHeaderClass('dashboard')}">
-                    <h:graphicImage library="images" name="home-48.png" style="height:42px"
-                                    title="#{appTextResourceBean.getMessage('leave.look.dashboard.tooltips')}"/>
-                </h:link>
-            </li>
+                <a href="#{request.contextPath}/logout.html">
+                    <h:graphicImage library="images" name="add-user-2-48.png" style="height:32px"
+                                    title="#{appTextResourceBean.getMessage('leave.look.logout.tooltips')}"/>
 
-            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
-                <h:link outcome="/views/content/contents.xhtml"
-                        styleClass="#{navigationContext.getActiveHeaderClass('content')}">
-                    <h:graphicImage library="images" name="pages-2-48.png" style="height:42px"
-                                    title="#{appTextResourceBean.getMessage('ruacms.content.tooltips')}"/>
-                </h:link>
+                </a>
             </li>
-            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
-                <h:link outcome="/views/design/pages.xhtml" styleClass="#{navigationContext.getActiveHeaderClass('page')}">
-                    <h:graphicImage library="images" name="website-design-48.png" style="height:42px"
-                                    title="#{appTextResourceBean.getMessage('leave.look.setting.tooltips')}"/>
-                </h:link>
-            </li>
-            <sec:authorize ifAnyGranted="LEAVE_M,ORG_M,ORG_OWNER">
-                <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
-                    <h:link outcome="/views/organization/settings/general.xhtml"
-                            rendered="#{organizationContext.organizationAvailable}"
-                            styleClass="#{navigationContext.getActiveHeaderClass('general')}">
-                        <h:graphicImage library="images" name="gear-2-48.png" style="height:42px"
-                                        title="#{appTextResourceBean.getMessage('leave.look.setting.tooltips')}"/>
-                    </h:link>
-                </li>
-            </sec:authorize>
-
-            <sec:authorize ifAnyGranted="SYSTEM_ADMIN">
-                <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
-                    <h:link outcome="/views/app/saasService.xhtml"
-                            styleClass="#{navigationContext.getActiveHeaderClass('saasService')}">
-                        <h:graphicImage library="images" name="edit-property-48.png" style="height:42px"
-                                        title="#{appTextResourceBean.getMessage('leave.look.app.setting.tooltips')}"/>
-                    </h:link>
-                </li>
-            </sec:authorize>
-
-            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
-                <h:link id="profileLink" outcome="/views/user/profile?faces-redirect=true"
-                        styleClass="#{navigationContext.getActiveHeaderClass('profile')}">
-                    <h:graphicImage library="images" name="contacts-48.png" style="height:42px"
-                                    rendered="#{organizationContext.currentUser.avatar == null}"
-                                    title="#{appTextResourceBean.getMessage('leave.look.profile.tooltips')}"/>
-                    <h:graphicImage
-                            value="/fileservice/#{organizationContext.currentUser.avatar.id}/#{organizationContext.currentUser.avatar.fileName}"
-                            styleClass="avatar" title="#{appTextResourceBean.getMessage('leave.look.profile.tooltips')}"
-                            rendered="#{organizationContext.currentUser.avatar != null}"/>
-                </h:link>
-            </li>
-
             <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
                 <a href="#{request.contextPath}/logout.html">
-                    <h:graphicImage library="images" name="logout-48.png" style="height:42px"
+                    <h:graphicImage library="images" name="app-shield-32.png" style="height:32px"
+                                    title="#{appTextResourceBean.getMessage('leave.look.logout.tooltips')}"/>
+                </a>
+            </li>
+            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
+                <a href="#{request.contextPath}/logout.html">
+                    <h:graphicImage library="images" name="logout-48.png" style="height:32px"
                                     title="#{appTextResourceBean.getMessage('leave.look.logout.tooltips')}"/>
                 </a>
             </li>

@@ -41,7 +41,7 @@
 				<p:growl id="messages" for="notification" showDetail="false" />
 				<pe:tooltip global="true" myPosition="left center" atPosition="right center" />
 
-				<pe:layoutPane  position="north" closable="false" resizable="false" slidable="false" size="60" minSize="40"
+				<pe:layoutPane  position="north" closable="false" resizable="false" slidable="false" size="40" minSize="32"
 					styleClassContent="navigationPanel page-header navbar" maxSize="150" spacingOpen="0">
 					<ui:insert name="header" />
 				</pe:layoutPane>
@@ -49,10 +49,6 @@
 				<pe:layoutPane position="center" closable="false" resizable="false" slidable="false" styleClassContent="textCenter">
 					<ui:insert name="centerContent" />
 				</pe:layoutPane>
-				<pe:layoutPane position="south" closable="false" resizable="false" slidable="false" spacingOpen="0">
-					<ui:insert name="footer" />
-				</pe:layoutPane>
-
 			</h:form>
 		</pe:layout>
 

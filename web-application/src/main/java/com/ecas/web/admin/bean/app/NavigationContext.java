@@ -44,7 +44,7 @@ public class NavigationContext implements Serializable {
         return StringUtils.EMPTY;
     }
 
-    public String getViewId() {
+    private String getViewId() {
         FacesContext fc = FacesContext.getCurrentInstance();
         String viewId = fc.getViewRoot().getViewId();
         String selectedComponent;
