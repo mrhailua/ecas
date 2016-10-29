@@ -64,7 +64,7 @@ public class UserManageBean extends BaseBean implements Serializable {
             addInfoMessage("com.org.invite.sucessfully", editUser.getEmail());
         } catch (Exception e) {
             log.error("Save User error", e);
-            addWarnMessage("iwork.create.user.invalid.msg", editUser.getName());
+            addWarnMessage("com.cas.create.user.invalid.msg", editUser.getName());
         }
     }
 

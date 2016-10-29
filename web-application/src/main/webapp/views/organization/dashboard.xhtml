@@ -8,13 +8,6 @@
                 xmlns:sec="http://www.springframework.org/security/tags"
                 template="/layouts/dashboardLayout.xhtml">
     <ui:define name="organizationContent">
-        <p:panel styleClass="textLeft no-border" rendered="#{!organizationContext.organizationAvailable}">
-            <h:outputText value="#{applicationBean.commontTexts['dashboard.organization.instroduce']}" escape="false"/>
-            <p:commandButton value="#{msg['iwork.organization.start']}" styleClass="k-primary" icon="ui-icon-plus"
-                             actionListener="#{organizationBean.addOrganization}" oncomplete="PF('dlg').show();"
-                             update="dialog"/>
-        </p:panel>
-
         <p:panel styleClass="textCenter no-border" style="max-width:1024px"
                  rendered="#{organizationContext.organizationAvailable}">
             <div class="row margin-top-10">

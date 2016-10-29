@@ -1,12 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:sec="http://www.springframework.org/security/tags">
-    <div class="headerItem logo">
-        <h:graphicImage
-                value="/fileservice/#{organizationContext.workingOrganization.logo.id}/#{organizationContext.workingOrganization.logo.fileName}"
-                style="height:42px"
-                rendered="#{organizationContext.workingOrganization.logo != null}"/>
-    </div>
     <div class="orgName">
         <h:outputText value="#{organizationContext.workingOrganization.name}" styleClass="organization-name"/>
     </div>
@@ -24,7 +18,7 @@
                 </a>
             </li>
             <li class="dropdown dropdown-extended dropdown-notification dropdown-dark">
-                <a href="#{request.contextPath}/logout.html">
+                <a href="#{request.contextPath}/views/application.xhtml">
                     <h:graphicImage library="images" name="app-shield-32.png" style="height:32px"
                                     title="#{appTextResourceBean.getMessage('leave.look.logout.tooltips')}"/>
                 </a>

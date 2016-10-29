@@ -7,24 +7,24 @@
 			<p:tab id="personal" title="#{msg['leave.look.register.wizard.personal.title']}" titleStyleClass="no-text-shadow">
 				<h:panelGrid id="userProfilePanel" columns="2" styleClass="textCenter">
 					<p:inputText id="name" value="#{registerProfileBean.user.name}" required="true" size="80"
-						requiredMessage="#{msg['iwork.sign.up.fullname.require.msg']}" placeholder="#{msg['iwork.login.form.name.label']}" />
+						requiredMessage="#{msg['iwork.sign.up.fullname.require.msg']}" placeholder="#{msg['com.cas.login.form.name.label']}" />
 					<p:message for="name" display="icon" />
 	
 					<p:inputText id="userNameTxt" value="#{registerProfileBean.user.email}" required="true" size="80"
-						placeholder="#{msg['iwork.login.form.username.label']}" requiredMessage="#{msg['iwork.sign.up.email.require.msg']}"	>
+								 placeholder="#{msg['com.cas.login.form.username.label']}" requiredMessage="#{msg['iwork.sign.up.email.require.msg']}"	>
 						<f:validator binding="#{validateEmailValidator}" />
 						<f:validator binding="#{validateEmailUniqueValidator}" />
 					</p:inputText>
 					<p:message for="userNameTxt" display="icon" />
 	
 					<p:password id="password" value="#{registerProfileBean.user.password}" required="true" size="80"
-						placeholder="#{msg['iwork.login.form.password.label']}"
+						placeholder="#{msg['com.cas.login.form.password.label']}"
 						requiredMessage="#{msg['iwork.sign.up.password.require.msg']}" match="repeatPassword" />
 					<p:message for="password" display="icon" />
 	
 					<p:password id="repeatPassword" value="#{registerProfileBean.repeatPassword}" required="true"
 						requiredMessage="#{msg['iwork.sign.up.repassword.require.msg']}" size="80"
-						placeholder="#{msg['iwork.login.form.password.repeat.label']}"
+						placeholder="#{msg['com.cas.login.form.password.repeat.label']}"
 						validatorMessage="#{msg['iwork.sign.up.password.match.msg']}" />
 					<p:message for="repeatPassword" display="icon" />
 					
@@ -33,7 +33,7 @@
 			</p:tab>
 			<p:tab id="orgData" title="#{msg['leave.look.register.wizard.import.title']}" titleStyleClass="no-text-shadow">
 				<h:panelGrid columns="3" styleClass="textLeft" id="selectCountryForOrgDefault" titleStyle="no-text-shadow">
-						<p:outputLabel for="importDefaultConfigure" value="#{msg['leave.look.import.default']}" />
+						<p:outputLabel for="importDefaultConfigure" value="#{msg['com.cas.imprt.default']}" />
 						<p:selectBooleanButton id="importDefaultConfigure" value="#{registerProfileBean.importConfigure}" onLabel="Yes"
 							offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
 						</p:selectBooleanButton>
@@ -55,7 +55,7 @@
 			</p:tab>
 			<p:tab id="summary" title="#{msg['leave.look.register.wizard.summary.title']}" titleStyleClass="no-text-shadow">
 				<h:panelGrid id="userSummary" columns="2" styleClass="textLeft table" columnClasses="column_30,column_70" style="width:90%">
-					<p:outputLabel value="#{msg['iwork.login.form.name.label']}" />
+					<p:outputLabel value="#{msg['com.cas.login.form.name.label']}" />
 					<h:outputText value="#{registerProfileBean.user.name}" styleClass="out-value" />
 					
 					
@@ -67,9 +67,9 @@
 		<p:toolbarGroup >
 			<p:panel id="buttonArea" style="margin-top:0px;padding-top:0px">
 				<p:commandButton onclick="PF('registerFlow').back();" rendered="#{registerProfileBean.currentStep != 'personal'}" value="#{msg['leave.look.wizard.back.label']}"/>
-				<p:button value="#{msg['iwork.login.form.btn.sign.in']}" style="margin-left: 5px;" outcome="/views/login" />
-				<p:commandButton value="#{msg['iwork.login.form.btn.sign.up']}" ajax="true"
-							action="#{registerProfileBean.registerUserProfile}" rendered="#{registerProfileBean.currentStep == 'summary'}" update="userProfilePanel,messages" styleClass="k-primary" />
+				<p:button value="#{msg['com.cas.login.form.btn.sign.in']}" style="margin-left: 5px;" outcome="/views/login" />
+				<p:commandButton value="#{msg['com.cas.login.form.btn.sign.up']}" ajax="true"
+								 action="#{registerProfileBean.registerUserProfile}" rendered="#{registerProfileBean.currentStep == 'summary'}" update="userProfilePanel,messages" styleClass="k-primary" />
 				<p:commandButton onclick="PF('registerFlow').next();"  rendered="#{registerProfileBean.currentStep != 'summary'}"  value="#{msg['leave.look.wizard.next.label']}"/>
 			</p:panel>
 		</p:toolbarGroup>

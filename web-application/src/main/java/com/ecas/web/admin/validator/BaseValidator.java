@@ -7,6 +7,7 @@ import com.sun.faces.component.visit.FullVisitContext;
 import org.primefaces.util.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.visit.VisitCallback;
@@ -60,9 +61,5 @@ public abstract class BaseValidator {
 
     public ServiceRegistry getServiceRegistry() {
         return serviceRegistry;
-    }
-
-    public void setServiceRegistry(ServiceRegistry serviceRegistry) {
-        this.serviceRegistry = serviceRegistry;
     }
 }

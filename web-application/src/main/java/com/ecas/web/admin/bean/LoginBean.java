@@ -45,7 +45,7 @@ public class LoginBean extends BaseBean implements Serializable {
             }
         } catch (Exception e) {
             log.warn("Login failed: ", e);
-            addWarnMessage("iwork.sign.in.invalid.email_or_pass");
+            addWarnMessage("com.cas.sign.in.invalid.email_or_pass");
         }
         return null;
     }

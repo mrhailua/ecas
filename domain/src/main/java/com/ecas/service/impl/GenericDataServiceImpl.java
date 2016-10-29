@@ -5,13 +5,15 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecas.base.AbstractDomain;
 import com.ecas.service.GenericDataService;
 
-@Service
+@Service("genericDataService")
+@Scope(value = "prototype")
 @Transactional
 public class GenericDataServiceImpl<T extends AbstractDomain> extends CommonDataRetrieveServiceImpl<T> implements
         GenericDataService<T>, Serializable {
@@ -69,11 +71,6 @@ public class GenericDataServiceImpl<T extends AbstractDomain> extends CommonData
 
     public Criteria getCriteria() {
         return getSessionFactory().getCurrentSession().createCriteria(getDomainClass());
-    }
-
-    public void flush() {
-        getSessionFactory().getCurrentSession().flush();
-        ;
     }
 
     @Override

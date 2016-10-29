@@ -7,12 +7,12 @@
 				<h:outputText value="#{msg['leave.look.registraition.email.notification']}" styleClass="notification-msg "/>
 			</p:outputPanel>
 			<h:panelGrid columns="2" styleClass="textLeft">
-				<p:outputLabel for="userName" value="#{msg['iwork.login.form.name.label']}" styleClass="activation-label" />
+				<p:outputLabel for="userName" value="#{msg['com.cas.login.form.name.label']}" styleClass="activation-label" />
 				<p:inputText id="userName" value="#{profileBean.user.name}" size="50" readonly="true" />
 
-				<p:outputLabel for="userNameActivateCode" value="#{msg['iwork.login.form.activate.code.label']}" styleClass="activation-label" />
+				<p:outputLabel for="userNameActivateCode" value="#{msg['com.cas.login.form.activate.code.label']}" styleClass="activation-label" />
 				<p:inputText id="userNameActivateCode" value="#{profileBean.activationCode}" size="50"
-					placeholder="#{msg['iwork.login.form.activate.code.label']}" />
+					placeholder="#{msg['com.cas.login.form.activate.code.label']}" />
 
 				<f:facet name="footer">
 					<p:commandButton value="#{msg['system.button.active.label']}" action="#{profileBean.activateUserProfile}"

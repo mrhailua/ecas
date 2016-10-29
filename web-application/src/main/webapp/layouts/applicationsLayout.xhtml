@@ -20,19 +20,9 @@
         <ui:include src="/sections/organization/header.xhtml"/>
     </ui:define>
     <ui:define name="centerContent">
-        <pe:layoutPane position="west" closable="false" resizable="false" slidable="false"
-                       spacingOpen="0">
-            <f:facet name="header">
-                <h:outputText value="#{msg['iwork.organization.setting.title']}"/>
-            </f:facet>
-            <ul class="nav nav-pills nav-stacked">
-            	<li role="presentation" class="#{navigationContext.getActiveClass('general')}"><a href="#{request.contextPath}/views/organization/settings/general.xhtml">#{msg['iwork.menu.settings.general']}</a></li>
-                <li role="presentation" class="#{navigationContext.getActiveClass('user')}"><a href="#{request.contextPath}/views/organization/settings/user.xhtml">#{msg['menu.settings.user']}</a></li>
-            </ul>
-        </pe:layoutPane>
         <pe:layoutPane position="center" closable="false" resizable="false" slidable="false"
                        styleClassContent="textCenter centerContent"
-                       spacingOpen="0">
+                       spacingOpen="3">
             <ui:insert name="organizationContent"/>
         </pe:layoutPane>
     </ui:define>

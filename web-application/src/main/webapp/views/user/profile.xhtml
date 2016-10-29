@@ -6,11 +6,11 @@
 			<h:panelGrid columns="1">
 				<h:panelGrid columns="2" styleClass="centerProfile">
 					<h:panelGrid columns="2" id="userProfilePanel">
-						<p:outputLabel for="name" value="#{msg['iwork.login.form.name.label']}" />
+						<p:outputLabel for="name" value="#{msg['com.cas.login.form.name.label']}" />
 						<p:inputText id="name" value="#{profileBean.user.name}" required="true" size="50"
 							requiredMessage="#{msg['iwork.sign.up.fullname.require.msg']}" />
 
-						<p:outputLabel for="userNameTxt" value="#{msg['iwork.login.form.username.label']}" />
+						<p:outputLabel for="userNameTxt" value="#{msg['com.cas.login.form.username.label']}" />
 						<p:inputText id="userNameTxt" value="#{profileBean.user.email}" readonly="true" size="50" />
 
 						<f:facet name="footer">
@@ -45,7 +45,7 @@
 					<p:message for="newpassword" display="icon" />
 
 					<p:password id="repeatPassword" value="#{profileBean.repeatPassword}" size="80"
-						placeholder="#{msg['iwork.login.form.password.repeat.label']}" />
+						placeholder="#{msg['com.cas.login.form.password.repeat.label']}" />
 					<p:message for="repeatPassword" display="icon" />
 				</h:panelGrid>
 			</h:panelGrid>

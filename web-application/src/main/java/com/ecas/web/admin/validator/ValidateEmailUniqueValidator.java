@@ -21,7 +21,7 @@ public class ValidateEmailUniqueValidator extends BaseValidator implements Valid
 			User user = getUserDataService().getUserByEmail((String) value);
 			// User email is existed
 			if (user != null) {
-				FacesMessage facesMsg = new FacesMessage(getStringMessage("iwork.login.form.email.existed",
+				FacesMessage facesMsg = new FacesMessage(getStringMessage("com.cas.form.email.existed",
 				        user.getEmail()), null);
 				facesMsg.setSeverity(FacesMessage.SEVERITY_ERROR);
 				throw new ValidatorException(facesMsg);

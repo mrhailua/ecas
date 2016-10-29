@@ -40,7 +40,7 @@
                 <h:outputText value="#{userInfo.name}" title="#{userInfo.email}" styleClass="user-info"/>
             </p:column>
 
-            <p:column headerText="#{msg['iwork.login.form.enable.label']}" width="100" styleClass="textCenter">
+            <p:column headerText="#{msg['com.cas.login.form.enable.label']}" width="100" styleClass="textCenter">
                 <p:cellEditor>
                     <f:facet name="output">
                         <p:selectBooleanButton value="#{userInfo.userEnable}" onLabel="#{msg['common.yes']}"
@@ -56,7 +56,7 @@
                 </p:cellEditor>
             </p:column>
 
-            <p:column headerText="#{msg['iwork.login.form.active.label']}" width="100" styleClass="textCenter">
+            <p:column headerText="#{msg['com.cas.login.form.active.label']}" width="100" styleClass="textCenter">
                 <p:link href="#">
                     <h:graphicImage library="images" name="checked-checkbox-24.png" title="#{msg['common.yes']}"
                                     style="height:18px"
@@ -77,13 +77,13 @@
                   width="600" resizable="false" appendTo="mainForm" modal="true">
 
             <h:panelGrid id="userPanel" columns="3" styleClass="textLeft padding-top padding-left">
-                <p:outputLabel for="userName" value="#{msg['iwork.login.form.name.label']}"/>
+                <p:outputLabel for="userName" value="#{msg['com.cas.login.form.name.label']}"/>
                 <p:inputText id="userName" value="#{userManageBean.editUser.name}" required="true"
                              requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}" maxlength="255"
                              size="70"/>
                 <p:message for="userName" display="icon"/>
 
-                <p:outputLabel for="userEmail" value="#{msg['iwork.login.form.username.label']}"/>
+                <p:outputLabel for="userEmail" value="#{msg['com.cas.login.form.username.label']}"/>
                 <p:inputText id="userEmail" value="#{userManageBean.editUser.email}" required="true"
                              requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}" maxlength="255"
                              size="70">
@@ -92,7 +92,7 @@
                 </p:inputText>
                 <p:message for="userEmail" display="icon"/>
 
-                <p:outputLabel for="selectGender" value="#{msg['iwork.login.form.gender.label']}"/>
+                <p:outputLabel for="selectGender" value="#{msg['com.cas.login.form.gender.label']}"/>
                 <p:selectOneMenu id="selectGender" value="#{userManageBean.editUser.gender}" required="true"
                                  style="width:120px"
                                  requiredMessage="#{msg['leave.store.datatable.column.input.require.msg']}"

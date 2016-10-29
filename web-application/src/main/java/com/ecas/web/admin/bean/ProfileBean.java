@@ -15,7 +15,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
-import java.util.List;
 
 @ManagedBean
 @ViewScoped
@@ -52,10 +51,10 @@ public class ProfileBean extends BaseBean implements Serializable {
             setUser(getServiceRegistry().getService(User.class).get(getCurrentUser().getId()));
             user.setPassword(encoder.encode(newPassword));
             getUserDataService().save(user);
-            addInfoMessage("leave.change.pass.sucessfully");
+            addInfoMessage("com.cas.change.pass.sucessfully");
             hideDialog("changePassDialog");
         } catch (BadCredentialsException ex) {
-            addWarnMessage("iwork.sign.in.invalid.pass");
+            addWarnMessage("com.cas.sign.in.invalid.pass");
         } catch (Exception e) {
             log.error("Save profile fail", e);
             addWarnMessage("iwork.sign.up.create.error", user.getEmail());

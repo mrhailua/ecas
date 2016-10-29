@@ -29,6 +29,8 @@
         updateUser tinyblob,
         description longtext not null,
         name varchar(255) not null,
+        status varchar(20),
+        owner_id integer,
         primary key (id)
     );
 
@@ -78,11 +80,11 @@
         id integer not null auto_increment unique,
         activation_code varchar(45),
         email varchar(255),
-        expireable boolean,
-        system_admin boolean DEFAULT 0,
+        expirable boolean,
         NAME varchar(255),
         password varchar(255),
         status varchar(20),
+        system_admin boolean,
         primary key (id)
     );
 
@@ -108,17 +110,23 @@
         role_id integer not null
     );
 
-    alter table ecas_api 
-        add index FK1CE6EAAB6B635D61 (application_id), 
-        add constraint FK1CE6EAAB6B635D61 
-        foreign key (application_id) 
+    alter table ecas_api
+        add index FK1CE6EAAB6B635D61 (application_id),
+        add constraint FK1CE6EAAB6B635D61
+        foreign key (application_id)
         references ecas_application (id);
 
-    alter table ecas_api_key 
-        add index FK24F86ACB683A4421 (api_id), 
-        add constraint FK24F86ACB683A4421 
-        foreign key (api_id) 
+    alter table ecas_api_key
+        add index FK24F86ACB683A4421 (api_id),
+        add constraint FK24F86ACB683A4421
+        foreign key (api_id)
         references ecas_api (id);
+
+    alter table ecas_application
+        add index FKAFDC54E131E9DA2B (owner_id),
+        add constraint FKAFDC54E131E9DA2B
+        foreign key (owner_id)
+        references ecas_user (id);
 
     alter table ecas_role 
         add index FK7FFE22056B635D61 (application_id), 

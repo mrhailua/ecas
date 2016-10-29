@@ -5,13 +5,13 @@
 		<h:panelGroup layout="block" styleClass="centerLogin">
 			<h:panelGrid  id="resetPanel" columns="2">
 				<p:inputText id="useremail" value="#{profileBean.emailToResetPass}" size="80" required="true"
-					requiredMessage="#{msg['iwork.sign.up.email.require.msg']}" placeholder="#{msg['iwork.login.form.username.label']}" />
+					requiredMessage="#{msg['iwork.sign.up.email.require.msg']}" placeholder="#{msg['com.cas.login.form.username.label']}" />
 				<p:message for="useremail" display="icon" />
 
 				<f:facet name="footer">
 					<p:commandButton value="#{msg['system.button.re-send.password.label']}" actionListener="#{profileBean.resetPassword}"
 						update="resetPanel,messages" styleClass="k-primary" global="true"/>
-					<p:button value="#{msg['iwork.login.form.btn.sign.in']}" style="margin-left: 5px;" outcome="/views/login" />
+					<p:button value="#{msg['com.cas.login.form.btn.sign.in']}" style="margin-left: 5px;" outcome="/views/login" />
 				</f:facet>
 			</h:panelGrid>
 		</h:panelGroup>

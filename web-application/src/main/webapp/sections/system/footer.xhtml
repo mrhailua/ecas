@@ -2,7 +2,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
 <ui:composition>
 	<p class="footer">
-		<p:outputLabel value="#{msg['com.cms.slogan.msg']}" rendered="#{organizationContext.workingOrganization.main}"/>
+		<p:outputLabel value="#{msg['com.ecas.slogan.msg']}" rendered="#{organizationContext.workingOrganization.main}"/>
 		<p:outputLabel value="#{organizationContext.workingOrganization.name}" rendered="#{!organizationContext.workingOrganization.main}"/>
 	</p>
 	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" onerror="location.reload();" />
