@@ -118,65 +118,6 @@ public abstract class BaseBean implements Serializable {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     }
 
-    public boolean filterDateGte(Object value, Object filter, Locale locale) {
-        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase(locale);
-        if (StringUtils.isBlank(filterText)) {
-            return true;
-        }
-        if (value == null) {
-            return false;
-        }
-        try {
-            String datavalue = (String) filterText;
-            DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-            Date startDate = df.parse(datavalue);
-            return startDate.compareTo((Date) value) <= 0;
-        } catch (ParseException e) {
-            log.warn("Parse to filter data fail", e);
-            return false;
-        }
-    }
-
-    public boolean filterDateLte(Object value, Object filter, Locale locale) {
-        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase(locale);
-        if (StringUtils.isBlank(filterText)) {
-            return true;
-        }
-        if (value == null) {
-            return false;
-        }
-
-        try {
-            String datavalue = (String) filter;
-            DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-            Date endDate = df.parse(datavalue);
-            return endDate.compareTo((Date) value) >= 0;
-        } catch (ParseException e) {
-            log.warn("Parse to filter data fail", e);
-            return false;
-        }
-    }
-
-    public boolean filterSameDate(Object value, Object filter, Locale locale) {
-        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase(locale);
-        if (StringUtils.isBlank(filterText)) {
-            return true;
-        }
-        if (value == null) {
-            return false;
-        }
-
-        try {
-            String datavalue = (String) filter;
-            DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-            Date filterDate = df.parse(datavalue);
-            return DateUtils.isSameDay(filterDate, (Date) value);
-        } catch (ParseException e) {
-            log.warn("Parse to filter data fail", e);
-            return false;
-        }
-    }
-
     public String getViewId() {
         FacesContext fc = FacesContext.getCurrentInstance();
         String viewId = fc.getViewRoot().getViewId();

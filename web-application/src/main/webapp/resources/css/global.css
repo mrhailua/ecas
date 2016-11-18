@@ -413,7 +413,7 @@ table .columnTop {
 .avatar {
 	width: 42px;
 	height: 42px;
-	border: 1px #319df3 silver;
+	border: 1px #319df3;
 	-webkit-border-radius: 50% !important;
 	-moz-border-radius: 50% !important;
 	border-radius: 50% !important;
@@ -482,7 +482,8 @@ table .columnTop {
 
 .navigationPanel {
 	border: thin none;
-	border-bottom: 1px solid #42bffb display: inline-block;
+	border-bottom: 1px solid #42bffb ;
+    display: inline-block;
 	background-color: #f5f5f5 !important;
 	overflow: visible !important;
 	z-index: 999 !important;
@@ -679,16 +680,11 @@ table .columnTop {
 	margin: 0;
 	padding: 0;
 	display: block;
-	background: url(#{ resource [ 'images/info-red.png' ]
+	background: url(#{resource['images/info-red.png']});
 }
 
-);
-}
 .m-icon-white {
-	background-image: url(#{ resource [ 'global/img/syncfusion-icons-white.png' ]
-}
-
-);
+	background-image: url(#{resource['global/img/syncfusion-icons-white.png']});
 }
 
 /*  Misc */
@@ -731,17 +727,7 @@ table .columnTop {
 	margin: 0;
 	padding: 0;
 	display: block;
-	background: url(#{ resource [ 'images/info-2-32.png' ]
-}
-
-)
-no-repeat
- 
-!
-important
-;
-
-
+	background: url(#{resource['images/info-2-32.png']}) no-repeat !important;
 }
 .ui-growl-image-warn {
 	width: 32px;
@@ -750,34 +736,18 @@ important
 	margin: 0;
 	padding: 0;
 	display: block;
-	background: url(#{ resource [ 'images/info-warn.png' ]
+	background: url(#{resource['images/info-warn.png']}) no-repeat !important;
 }
 
-)
-no-repeat
- 
-!
-important
- 
-;
-}
 .ui-inputfield.ui-state-error, .ui-widget-header .ui-inputfield.ui-state-error,
 	.ui-widget-content .ui-inputfield.ui-state-error {
 	border: 1px solid red;
 }
 
 .ui-message-error-icon {
-	background: url(#{ resource [ 'images/error-4-16.png' ]
+	background: url(#{resource['images/error-4-16.png']} ) no-repeat !important ;
 }
 
-)
-no-repeat
- 
-!
-important
- 
-;
-}
 .ui-messages-error, .ui-message-error {
 	background-color: transparent !important;
 	border-color: transparent;
