@@ -11,6 +11,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ApplicationBean extends BaseBean implements Serializable {
     private static final long serialVersionUID = -6255646714469511339L;
     private Application application;
+    private List<Application> currentApplications = Collections.EMPTY_LIST;
 
     @ManagedProperty(value = "#{applicationDataService}")
     private ApplicationDataService applicationDataService;
@@ -28,6 +32,7 @@ public class ApplicationBean extends BaseBean implements Serializable {
     @PostConstruct
     public void init() {
         application = new Application();
+        currentApplications = applicationDataService.getAll();
     }
 
     public void saveNewApplication() {
@@ -62,5 +67,13 @@ public class ApplicationBean extends BaseBean implements Serializable {
     @Override
     public void setServiceRegistry(ServiceRegistry serviceRegistry) {
         this.serviceRegistry = serviceRegistry;
+    }
+
+    public List<Application> getCurrentApplications() {
+        return currentApplications;
+    }
+
+    public void setCurrentApplications(List<Application> currentApplications) {
+        this.currentApplications = currentApplications;
     }
 }

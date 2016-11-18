@@ -624,3 +624,15 @@ textarea#message {
     -o-transform: scale(1);
   }
 }
+
+pre {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+  font-style: italic;
+  margin: 0.9em 0;
+}
+
+.ellipsis-text{
+  text-overflow: ellipsis;
+}

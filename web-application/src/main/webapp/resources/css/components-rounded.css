@@ -5044,6 +5044,7 @@ Dashboard Stats 2
   clear: both;
 }
 .dashboard-stat2 .display .number {
+  text-align: left;
   float: left;
   display: inline-block;
 }
@@ -5057,10 +5058,8 @@ Dashboard Stats 2
   font-size: 23px;
 }
 .dashboard-stat2 .display .number small {
-  font-size: 14px;
+  font-size: 12px;
   color: #AAB5BC;
-  font-weight: 600;
-  text-transform: uppercase;
 }
 .dashboard-stat2 .display .icon {
   display: inline-block;
