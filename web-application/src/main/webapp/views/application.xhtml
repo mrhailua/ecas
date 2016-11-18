@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pe="http://primefaces.org/ui/extensions" template="/layouts/applicationsLayout.xhtml">
+    <ui:define name="organizationContent">
+        <p:panel styleClass="textCenter no-border" >
+            <div class="row margin-top-10">
+                <div class="col-md-3" style="box-sizing: border-box">
+                    <div class="dashboard-stat2">
+                        <div class="number" style="margin-top: 20px">
+                            <p:commandLink oncomplete="PF('addApplicationDialog').show();">
+                                <h:graphicImage library="images" name="add-48.png" style="height:48px"
+                                                title="#{msg['com.cas.application.add.hint']}"/>
+                            </p:commandLink>
+                        </div>
+                    </div>
+                </div>
+
+                <ui:repeat var="app" value="#{applicationBean.currentApplications}">
+                    <div class="col-md-3" style="box-sizing: border-box">
+                        <div class="dashboard-stat2">
+                            <div class="display">
+                                <div class="number">
+                                    <h3 class="font-#{colorHelper.getStyle(app.id)}">
+                                        #{app.name}<small class="font-#{colorHelper.getStyle(app.id)}"></small>
+                                    </h3>
+                                    <div class="ellipsis-text">
+                                        <small>#{app.description}</small>
+                                    </div>
+                                </div>
+                                    <p:commandLink oncomplete="PF('addApplicationDialog').show();" style="position: absolute;right: 25px">
+                                        <i class="icon-settings" style="font-size: 20px"></i>
+                                    </p:commandLink>
+                            </div>
+                            <div class="progress-info">
+                                <div class="progress">
+									<span style="width: 100%;" class="progress-bar progress-bar-success #{colorHelper.getStyle(app.id)}">
+									</span>
+                                </div>
+                                <div class="status">
+                                    <div class="status-title">#{msg['iwork.dashboard.leave.blocked.store']}</div>
+                                    <div class="status-number">30</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </p:panel>
+
+        <p:dialog id="addApplicationDialog" header="#{msg['com.cas.application.add.dialog.header']}" widgetVar="addApplicationDialog"
+                  position="center,center" resizable="false" appendTo=":mainForm" modal="true" width="630">
+            <h:panelGrid id="applicationPanel" columns="2" styleClass="textLeft">
+                <p:outputLabel for="applicationName" value="#{msg['com.cas.application.add.name.label']}"/>
+                <h:panelGrid columns="2">
+                    <p:inputText id="applicationName" value="#{applicationBean.application.name}" required="true"
+                                 requiredMessage="#{msg['system.require.message']}" maxlength="255" size="80">
+                        <f:validator binding="#{applicationNameUnique}"/>
+                    </p:inputText>
+                    <p:message for="applicationName" display="icon"/>
+                </h:panelGrid>
+
+                <p:outputLabel for="applicationDescription" value="#{msg['com.cas.application.add.name.description']}"/>
+                <h:panelGrid columns="2">
+                    <p:inputTextarea id="applicationDescription" value="#{applicationBean.application.description}" rows="10" cols="80"
+                                     autoResize="true"/>
+                    <p:message for="applicationDescription" display="icon"/>
+                </h:panelGrid>
+
+            </h:panelGrid>
+            <f:facet name="footer">
+                <p:commandButton value="#{msg['system.button.save.label']}" action="#{applicationBean.saveNewApplication}"
+                                 process="addApplicationDialog" styleClass="k-primary" update=":mainForm:messages,applicationPanel"/>
+                <p:commandButton value="#{msg['system.button.cancel.label']}" style="margin-left: 5px;" immediate="true" global="false"
+                                 onclick="PF('addApplicationDialog').hide();"/>
+            </f:facet>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
